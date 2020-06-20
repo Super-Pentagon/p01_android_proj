@@ -10,29 +10,30 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterEngineUtils;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterOperationUtil;
+import com.pentagon.p01_android_proj.order.OrderFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    BottomNavigationView.OnNavigationItemReselectedListener navigationItemReselectedListener =
-            new BottomNavigationView.OnNavigationItemReselectedListener() {
+    BottomNavigationView.OnNavigationItemSelectedListener navigationItemReselectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
-                public void onNavigationItemReselected(@NonNull MenuItem item) {
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.page_take_out:
                             FlutterOperationUtil.init().initFragmentById(FlutterEngineUtils.Home.HOME_PAGE_ROUTE).initLayoutId(R.id.main_container).startFlutterTransation(getSupportFragmentManager());
-                            break;
+                            return true;
 
                         case R.id.page_order:
-                            // TODO
-                            Toast.makeText(MainActivity.this, "page_order", Toast.LENGTH_SHORT).show();
-                            break;
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new OrderFragment()).commit();
+                            return true;
 
                         case R.id.page_mine:
                             // TODO
                             Toast.makeText(MainActivity.this, "page_mine", Toast.LENGTH_SHORT).show();
-                            break;
+                            return true;
 
                         default:
+                            return true;
                     }
                 }
             };
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
-        navigationView.setOnNavigationItemReselectedListener(navigationItemReselectedListener);
+        navigationView.setOnNavigationItemSelectedListener(navigationItemReselectedListener);
         navigationView.setSelectedItemId(R.id.page_take_out);
 
     }
