@@ -171,6 +171,8 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
         mListLayout.setVisibility(View.VISIBLE);
         mAdapter.setProducts(products);
         mAdapter.notifyDataSetChanged();
+        mSalesCheckBox.setVisibility(View.VISIBLE);
+        mPriceCheckBox.setVisibility(View.VISIBLE);
     }
 
     @Override

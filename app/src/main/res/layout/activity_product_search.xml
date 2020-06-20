@@ -104,6 +104,7 @@
             android:paddingEnd="8dp"
             android:text="价格"
             android:textColor="@color/gray"
+            android:visibility="invisible"
             app:layout_constraintStart_toEndOf="@+id/salesCheckBox"
             app:layout_constraintTop_toTopOf="@+id/salesCheckBox" />
 
@@ -118,6 +119,7 @@
             android:paddingEnd="8dp"
             android:text="销量"
             android:textColor="@color/gray"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
