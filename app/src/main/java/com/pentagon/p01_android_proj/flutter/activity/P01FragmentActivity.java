@@ -54,7 +54,7 @@ public class P01FragmentActivity extends FragmentActivity {
 
         getSupportFragmentManager()
         .beginTransaction()
-        .add(R.id.flutter_container, flutterFragment)
+        .add(R.id.main_container, flutterFragment)
         .commit();
     }
 

@@ -11,18 +11,10 @@
         android:layout_weight="1">
 
         <FrameLayout
-            android:id="@+id/flutter_container"
-            android:visibility="invisible"
+            android:id="@+id/main_container"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:visibility="visible" />
 
     </RelativeLayout>
 

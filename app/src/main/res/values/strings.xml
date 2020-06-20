@@ -4,4 +4,6 @@
     <string name="main_take_out">外卖</string>
     <string name="main_order">订单</string>
     <string name="main_mine">我的</string>
+
+    <string name="hello_blank_fragment">hello_blank_fragment</string>
 </resources>

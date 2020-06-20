@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onNavigationItemReselected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.page_take_out:
-                            FlutterOperationUtil.init().initFragmentById(FlutterEngineUtils.Home.HOME_PAGE_ROUTE).initLayoutId(R.id.flutter_container).startFlutterTransation(getSupportFragmentManager());
+                            FlutterOperationUtil.init().initFragmentById(FlutterEngineUtils.Home.HOME_PAGE_ROUTE).initLayoutId(R.id.main_container).startFlutterTransation(getSupportFragmentManager());
                             break;
 
                         case R.id.page_order:
