@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">P01_android_proj</string>
+
+    <string name="main_take_out">外卖</string>
+    <string name="main_order">订单</string>
+    <string name="main_mine">我的</string>
 </resources>
