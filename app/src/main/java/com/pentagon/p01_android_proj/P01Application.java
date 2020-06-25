@@ -27,18 +27,23 @@ public class P01Application extends Application {
         FlutterMain.ensureInitializationComplete(this,args);
         instance=this;
 
-        // 初始化 FlutterEngine.
-        FlutterEngine flutterEngine = new FlutterEngine(this);
-        // Configure an initial route.
-        flutterEngine.getNavigationChannel().setInitialRoute(FlutterEngineUtils.Home.HOME_PAGE_ROUTE + "?{\"message\":\"StephenCurry\"}");
-        // Start executing Dart code to pre-warm the FlutterEngine.
-        flutterEngine.getDartExecutor().executeDartEntrypoint(
-                DartExecutor.DartEntrypoint.createDefault()
-        );
-        // Cache the FlutterEngine to be used by FlutterActivity or FlutterFragment.
-        FlutterEngineCache
-                .getInstance()
-                .put(FlutterEngineUtils.Home.HOME_PAGE_ROUTE, flutterEngine);
+        try {
+            // 初始化 FlutterEngine.
+            FlutterEngine flutterEngine = new FlutterEngine(this);
+            // Configure an initial route.
+            flutterEngine.getNavigationChannel().setInitialRoute(FlutterEngineUtils.Home.HOME_PAGE_ROUTE + "?{\"message\":\"StephenCurry\"}");
+            // Start executing Dart code to pre-warm the FlutterEngine.
+            flutterEngine.getDartExecutor().executeDartEntrypoint(
+                    DartExecutor.DartEntrypoint.createDefault()
+            );
+            // Cache the FlutterEngine to be used by FlutterActivity or FlutterFragment.
+            FlutterEngineCache
+                    .getInstance()
+                    .put(FlutterEngineUtils.Home.HOME_PAGE_ROUTE, flutterEngine);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
