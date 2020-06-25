@@ -12,6 +12,11 @@ import com.pentagon.p01_android_proj.flutter.utils.FlutterEngineUtils;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterOperationUtil;
 import com.pentagon.p01_android_proj.order.OrderFragment;
 
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
+import io.flutter.view.FlutterMain;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemReselectedListener =
@@ -20,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.page_take_out:
-                            FlutterOperationUtil.init().initFragmentById(FlutterEngineUtils.Home.HOME_PAGE_ROUTE).initLayoutId(R.id.main_container).startFlutterTransation(getSupportFragmentManager());
+//                            FlutterOperationUtil.init().initFragmentById(FlutterEngineUtils.Home.HOME_PAGE_ROUTE).initLayoutId(R.id.main_container).startFlutterTransation(getSupportFragmentManager());
                             return true;
 
                         case R.id.page_order:
