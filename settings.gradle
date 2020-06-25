@@ -1,13 +1,18 @@
+apply from : "config.gradle"
+
 include ':app'
 setBinding(new Binding([gradle: this]))
 // 无 flutter 环境/项目 请注释以下
-//evaluate(new File(
-//  settingsDir,
-//  '../p01_flutter_proj/.android/include_flutter.groovy'
-//))
-//rootProject.name='P01_android_proj'
-//
-//include ':p01_flutter_proj'
-//project(':p01_flutter_proj').projectDir = new File('../p01_flutter_proj')
+if (FLUTTER_IN_DENUG) {
+    evaluate(new File(
+      settingsDir,
+      '../p01_flutter_proj/.android/include_flutter.groovy'
+    ))
+    rootProject.name='P01_android_proj'
 
+    include ':p01_flutter_proj'
+    project(':p01_flutter_proj').projectDir = new File('../p01_flutter_proj')
+}
 // 无 flutter 环境/项目 请注释以上
+include ':p01_flutter_proj'
+project(':p01_flutter_proj').projectDir = new File('../p01_flutter_proj')

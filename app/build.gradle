@@ -1,15 +1,20 @@
 apply plugin: 'com.android.application'
 
+def cfg    = rootProject.ext.android
+def appId  = rootProject.ext.appId
+
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion cfg.COMLIER_SDK_VERSION
+    buildToolsVersion cfg.BUILD_TOOLS_VERSION
+
     defaultConfig {
-        applicationId "com.pentagon.p01_android_proj"
-        minSdkVersion 26
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId appId["app"]
+        minSdkVersion cfg.MIN_SDK_VERSION
+        targetSdkVersion cfg.TAR_SDK_VERSION
+        versionCode cfg.VERSION_CODE
+        versionName cfg.VERSION_NAME
+        testInstrumentationRunner cfg.testInstrumentationRunner
+        multiDexEnabled true
         ndk {
             // Filter for architectures supported by Flutter.
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
@@ -58,13 +63,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    // material design
+    implementation "com.google.android.material:material:${MATERIAL_VERSION}"
 
-//    debugImplementation 'com.superpentagon.p01flutterproj:flutter_debug:1.0'
-//    profileImplementation 'com.superpentagon.p01flutterproj:flutter_profile:1.0'
-//    releaseImplementation 'com.superpentagon.p01flutterproj:flutter_release:1.0'
-
-    // 无 flutter 环境/项目 请注释以下
-//    implementation project(path: ':flutter')
-    // 无 flutter 环境/项目 请注释以上
-    implementation 'com.google.android.material:material:1.3.0-alpha01'
+    if (FLUTTER_IN_DENUG) {
+        debugImplementation 'com.superpentagon.p01flutterproj:flutter_debug:1.0'
+        profileImplementation 'com.superpentagon.p01flutterproj:flutter_profile:1.0'
+        releaseImplementation 'com.superpentagon.p01flutterproj:flutter_release:1.0'
+        implementation project(path: ':flutter')
+    }else {
+        implementation fileTree(dir: 'libs/flutter', include: ['*.jar','*.aar'])
+    }
 }
