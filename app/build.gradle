@@ -40,7 +40,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // 无 flutter 环境/项目 请注释以下
-    // implementation project(path: ':flutter')
+    implementation project(path: ':flutter')
     // 无 flutter 环境/项目 请注释以上
     implementation 'com.google.android.material:material:1.3.0-alpha01'
 }
