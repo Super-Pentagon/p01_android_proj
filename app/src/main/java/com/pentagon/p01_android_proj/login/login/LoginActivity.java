@@ -8,9 +8,12 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -25,8 +28,9 @@ import com.pentagon.p01_android_proj.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private LinearLayout editLayout;
     private Toolbar toolbar;
     private ImageView usrHeadImage;
     private ImageView rainbowImage;
@@ -35,6 +39,9 @@ public class LoginActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private TextView registerText;
     private TextView forgetText;
+    private LinearLayout wrongLayout;
+    private TextView wrongTipsTextView;
+    private TextView wrongOkTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        editLayout = findViewById(R.id.edit_layout);
         toolbar = findViewById(R.id.toolbar);
         usrHeadImage = findViewById(R.id.usr_head);
         rainbowImage = findViewById(R.id.rainbow);
@@ -53,6 +61,14 @@ public class LoginActivity extends AppCompatActivity {
         userPasswordEdit = findViewById(R.id.usr_password);
         fab = findViewById(R.id.login);
         registerText = findViewById(R.id.register);
+        wrongLayout = findViewById(R.id.wrong);
+        wrongTipsTextView = findViewById(R.id.wrong_tips);
+        wrongOkTextView = findViewById(R.id.wrong_ok);
+
+        toolbar.setOnClickListener(this);
+        userAccountEdit.setOnClickListener(this);
+        userPasswordEdit.setOnClickListener(this);
+        editLayout.setOnClickListener(this);
     }
 
     private void loadImage() {
@@ -93,12 +109,50 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Back");
     }
 
+    public void loginEvent(View view) {
+        if (userAccountEdit.getText().toString() == null || userAccountEdit.getText().toString().equals("")) {
+            wrongTipsTextView.setText("账号不能为空");
+            wrongLayout.setVisibility(View.VISIBLE);
+            toolbar.setEnabled(false);
+            userAccountEdit.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            editLayout.setEnabled(false);
+            return;
+        }
+        if (userPasswordEdit.getText().toString() == null || userPasswordEdit.getText().toString().equals("")) {
+            wrongTipsTextView.setText("密码不能为空");
+            wrongLayout.setVisibility(View.VISIBLE);
+            toolbar.setEnabled(false);
+            userAccountEdit.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            editLayout.setEnabled(false);
+            return;
+        }
+        Toast.makeText(this, "register", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    public void tipsLayoutGone(View view) {
+        wrongLayout.setVisibility(View.GONE);
+        toolbar.setEnabled(true);
+        userAccountEdit.setEnabled(true);
+        userPasswordEdit.setEnabled(true);
+        editLayout.setEnabled(true);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home) {
+            if (wrongLayout.getVisibility() == View.VISIBLE) {
+                return true;
+            }
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

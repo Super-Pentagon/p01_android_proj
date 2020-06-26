@@ -16,15 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".login.forget.ResetPassActivity"></activity>
-        <activity android:name=".login.forget.ForgetPassActivity" >
+        <activity android:name=".login.forget.ForgetPassActivity" ></activity>
+        <activity android:name=".login.register.RegisterActivity" ></activity>
+        <activity android:name=".login.login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter></activity>
-        <activity android:name=".login.register.RegisterActivity" ></activity>
-        <activity android:name=".login.login.LoginActivity" ></activity>
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".flutter.activity.P01FragmentActivity" />
