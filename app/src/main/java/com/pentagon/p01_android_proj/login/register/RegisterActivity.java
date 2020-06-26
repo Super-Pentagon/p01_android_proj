@@ -6,10 +6,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
@@ -22,16 +26,18 @@ import com.bumptech.glide.request.target.Target;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pentagon.p01_android_proj.R;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private LinearLayout editLayout;
     private Toolbar toolbar;
     private ImageView rainbowImage;
     private EditText userAccountEdit;
     private EditText userPasswordEdit;
     private EditText passwordAgainEdit;
     private FloatingActionButton fab;
-    private TextView registerText;
-    private TextView forgetText;
+    private LinearLayout wrongLayout;
+    private TextView wrongTipsTextView;
+    private TextView wrongOkTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +49,22 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        editLayout = findViewById(R.id.edit_layout);
         toolbar = findViewById(R.id.toolbar);
         rainbowImage = findViewById(R.id.rainbow);
         userAccountEdit = findViewById(R.id.usr_account);
         userPasswordEdit = findViewById(R.id.usr_password);
         passwordAgainEdit = findViewById(R.id.usr_password_again);
         fab = findViewById(R.id.login);
-        registerText = findViewById(R.id.register);
+        wrongLayout = findViewById(R.id.wrong);
+        wrongTipsTextView = findViewById(R.id.wrong_tips);
+        wrongOkTextView = findViewById(R.id.wrong_ok);
+
+        toolbar.setOnClickListener(this);
+        userAccountEdit.setOnClickListener(this);
+        userPasswordEdit.setOnClickListener(this);
+        passwordAgainEdit.setOnClickListener(this);
+        editLayout.setOnClickListener(this);
     }
 
     private void loadImage() {
@@ -88,12 +103,73 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Back");
     }
 
+    public void registerEvent(View view) {
+        if (userAccountEdit.getText().toString() == null || userAccountEdit.getText().toString().equals("")) {
+            wrongTipsTextView.setText("账号不能为空");
+            wrongLayout.setVisibility(View.VISIBLE);
+            toolbar.setEnabled(false);
+            userAccountEdit.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            passwordAgainEdit.setEnabled(false);
+            editLayout.setEnabled(false);
+            return;
+        }
+        if (userPasswordEdit.getText().toString() == null || userPasswordEdit.getText().toString().equals("")) {
+            wrongTipsTextView.setText("密码不能为空");
+            wrongLayout.setVisibility(View.VISIBLE);
+            toolbar.setEnabled(false);
+            userAccountEdit.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            passwordAgainEdit.setEnabled(false);
+            editLayout.setEnabled(false);
+            return;
+        }
+        if (passwordAgainEdit.getText().toString() == null || passwordAgainEdit.getText().toString().equals("")) {
+            wrongTipsTextView.setText("确认密码不能为空");
+            wrongLayout.setVisibility(View.VISIBLE);
+            toolbar.setEnabled(false);
+            userAccountEdit.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            passwordAgainEdit.setEnabled(false);
+            editLayout.setEnabled(false);
+            return;
+        }
+        if (!userPasswordEdit.getText().toString().equals(passwordAgainEdit.getText().toString())) {
+            wrongTipsTextView.setText("两次填写密码不一致");
+            wrongLayout.setVisibility(View.VISIBLE);
+            toolbar.setEnabled(false);
+            userAccountEdit.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            passwordAgainEdit.setEnabled(false);
+            editLayout.setEnabled(false);
+            return;
+        }
+        Toast.makeText(this, "register", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    public void tipsLayoutGone(View view) {
+        wrongLayout.setVisibility(View.GONE);
+        toolbar.setEnabled(true);
+        userAccountEdit.setEnabled(true);
+        userPasswordEdit.setEnabled(true);
+        passwordAgainEdit.setEnabled(true);
+        editLayout.setEnabled(true);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home) {
+            if (wrongLayout.getVisibility() == View.VISIBLE) {
+                return true;
+            }
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

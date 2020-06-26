@@ -1,0 +1,45 @@
+package com.pentagon.p01_android_proj.util;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+public class UserPreferenceUtil {
+
+    public final static String PREFERENCE_USER_ID = "user_id";
+
+    /**
+     * 判断用户是否已经登陆
+     * @param activity
+     * @return
+     */
+    public static boolean isUserLogin(Activity activity) {
+        return getUserId(activity) != null && !getUserId(activity).equals("");
+    }
+
+    /**
+     * 读取磁盘用户 UserId
+     * @param activity
+     * @return
+     */
+    public static String getUserId(Activity activity) {
+        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+        String UserId = sharedPref.getString(PREFERENCE_USER_ID, "");
+        return UserId;
+    }
+
+    /**
+     * 更新磁盘用户 UserId
+     * @param activity
+     * @param newUserId
+     * @return
+     */
+    public static boolean setUserId(Activity activity, String newUserId) {
+        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(PREFERENCE_USER_ID, newUserId);
+        editor.commit();
+        return true;
+    }
+
+}
