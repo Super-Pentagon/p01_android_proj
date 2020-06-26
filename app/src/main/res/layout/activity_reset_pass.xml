@@ -9,6 +9,7 @@
     tools:context=".login.forget.ResetPassActivity">
 
     <LinearLayout
+        android:id="@+id/edit_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -44,6 +45,7 @@
                 android:layout_gravity="center"
                 android:background="@null"
                 android:paddingLeft="10dp"
+                android:singleLine="true"
                 android:hint="请输入新密码" />
 
         </androidx.cardview.widget.CardView>
@@ -64,6 +66,8 @@
                 android:layout_gravity="center"
                 android:background="@null"
                 android:paddingLeft="10dp"
+                android:password="true"
+                android:singleLine="true"
                 android:hint="请输确认新密码"/>
 
         </androidx.cardview.widget.CardView>
@@ -83,7 +87,8 @@
             android:layout_marginTop="30dp"
             android:padding="25dp"
             android:scaleType="center"
-            app:fabCustomSize="100dp"/>
+            app:fabCustomSize="100dp"
+            android:onClick="resetEvent"/>
 
         <View
             android:layout_width="wrap_content"
@@ -104,17 +109,26 @@
         <TextView
             android:id="@+id/wrong_tips"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_margin="30dp"
             android:background="@android:drawable/divider_horizontal_textfield"/>
 
         <TextView
             android:id="@+id/wrong_ok"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/deepskyblue"
+            android:onClick="tipsLayoutGone"
+            android:textSize="20sp"
+            android:text="知道了"
+            android:textStyle="bold"
+            android:gravity="center"/>
 
     </LinearLayout>
 
