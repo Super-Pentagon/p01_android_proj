@@ -9,32 +9,6 @@
     tools:context=".login.forget.ResetPassActivity">
 
     <LinearLayout
-        android:id="@+id/wrong"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:visibility="gone"
-        android:background="#10000000">
-
-        <TextView
-            android:id="@+id/wrong_tips"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:drawable/divider_horizontal_textfield"/>
-
-        <TextView
-            android:id="@+id/wrong_ok"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -115,6 +89,32 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wrong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="#10000000">
+
+        <TextView
+            android:id="@+id/wrong_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:drawable/divider_horizontal_textfield"/>
+
+        <TextView
+            android:id="@+id/wrong_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
