@@ -5,7 +5,7 @@
 
     <dist:module dist:instant="true" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".P01Application"
@@ -15,6 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".login.forget.ResetPassActivity"></activity>
+        <activity android:name=".login.forget.ForgetPassActivity" />
+        <activity android:name=".login.register.RegisterActivity" />
+        <activity android:name=".login.login.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".flutter.activity.P01FragmentActivity"></activity>
-        <activity android:name=".search.ProductSearchActivity">
-        </activity>
+        <activity android:name=".flutter.activity.P01FragmentActivity" />
+        <activity android:name=".search.ProductSearchActivity" />
     </application>
 
 </manifest>
