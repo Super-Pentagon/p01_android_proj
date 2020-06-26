@@ -72,6 +72,6 @@ dependencies {
         releaseImplementation 'com.superpentagon.p01flutterproj:flutter_release:1.0'
         implementation project(path: ':flutter')
     }else {
-        implementation fileTree(dir: 'libs/flutter', include: ['*.jar','*.aar'])
+        implementation fileTree(dir: 'libs/flutter/debug', include: ['*.jar','*.aar'])
     }
 }
