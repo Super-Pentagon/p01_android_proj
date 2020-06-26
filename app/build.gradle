@@ -65,6 +65,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     // material design
     implementation "com.google.android.material:material:${MATERIAL_VERSION}"
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     if (FLUTTER_IN_DENUG) {
         debugImplementation 'com.superpentagon.p01flutterproj:flutter_debug:1.0'
