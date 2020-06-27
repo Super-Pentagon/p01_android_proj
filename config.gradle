@@ -1,7 +1,7 @@
 ext {
 
     // 是否开启 flutter module
-    FLUTTER_IN_DENUG = true
+    FLUTTER_IN_DENUG = false
 
     appId = [
 
