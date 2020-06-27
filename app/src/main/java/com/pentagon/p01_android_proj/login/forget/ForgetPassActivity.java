@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -134,7 +136,7 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
             editLayout.setEnabled(false);
             return;
         }
-        Toast.makeText(this, "register", Toast.LENGTH_SHORT).show();
+        ResetPassActivity.actionStart(this);
         finish();
     }
 
@@ -161,4 +163,10 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
 
     }
+
+    public static void actionStart(Activity activity) {
+        Intent intent = new Intent(activity, ForgetPassActivity.class);
+        activity.startActivity(intent);
+    }
+
 }
