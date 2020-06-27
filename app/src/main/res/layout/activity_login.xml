@@ -115,7 +115,8 @@
                 android:layout_weight="1"
                 android:text="注册"
                 android:gravity="right"
-                android:paddingRight="25dp" />
+                android:paddingRight="25dp"
+                android:onClick="jumpToRegister"/>
 
             <View
                 android:layout_width="1dp"
@@ -129,7 +130,8 @@
                 android:layout_weight="1"
                 android:text="忘记密码"
                 android:gravity="left"
-                android:paddingLeft="25dp" />
+                android:paddingLeft="25dp"
+                android:onClick="jumpToForget"/>
 
         </LinearLayout>
 
@@ -142,7 +144,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:visibility="gone"
-        android:background="#10000000">
+        android:background="#bfffffff">
 
         <TextView
             android:id="@+id/wrong_tips"

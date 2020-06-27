@@ -4,9 +4,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -24,11 +26,19 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.pentagon.p01_android_proj.R;
+import com.pentagon.p01_android_proj.login.LoginModel;
+import com.pentagon.p01_android_proj.login.LoginResponse;
+import com.pentagon.p01_android_proj.login.forget.ForgetPassActivity;
+import com.pentagon.p01_android_proj.login.register.RegisterActivity;
+import com.pentagon.p01_android_proj.model.User;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Callback<String> {
 
     private LinearLayout editLayout;
     private Toolbar toolbar;
@@ -128,8 +138,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editLayout.setEnabled(false);
             return;
         }
-        Toast.makeText(this, "register", Toast.LENGTH_SHORT).show();
-        finish();
+        User user = new User(userAccountEdit.getText().toString(), userPasswordEdit.getText().toString());
+        try {
+            new LoginModel().login(this, user);
+        } catch (Exception e) {
+            Log.e("LoginActivity.login", e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    public void jumpToRegister(View view) {
+        RegisterActivity.actionStart(this);
+    }
+
+    public void jumpToForget(View view) {
+        ForgetPassActivity.actionStart(this);
     }
 
     public void tipsLayoutGone(View view) {
@@ -154,5 +177,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onResponse(Call<String> call, Response<String> response) {
+        Log.i("hornhuang-test-info", "" + response.body());
+        LoginResponse loginResponse = new Gson().fromJson(response.body(), LoginResponse.class);
+        if (loginResponse.getSuccess() == false) {
+            Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "登陆成功", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<String> call, Throwable t) {
+        Log.e("LoginActivity.login",t.toString());
+        Toast.makeText(this, "请检查网络", Toast.LENGTH_SHORT).show();
+    }
+
+    public static void actionStart(Activity activity) {
+        Intent intent = new Intent(activity, LoginActivity.class);
+        activity.startActivity(intent);
     }
 }

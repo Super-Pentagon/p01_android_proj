@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterEngineUtils;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterOperationUtil;
+import com.pentagon.p01_android_proj.login.login.LoginActivity;
 import com.pentagon.p01_android_proj.order.OrderFragment;
 
 import io.flutter.embedding.engine.FlutterEngine;
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(navigationItemReselectedListener);
         navigationView.setSelectedItemId(R.id.page_take_out);
-
     }
 
 }

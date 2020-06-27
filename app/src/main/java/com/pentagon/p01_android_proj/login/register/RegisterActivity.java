@@ -4,9 +4,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -24,9 +27,20 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.pentagon.p01_android_proj.R;
+import com.pentagon.p01_android_proj.login.LoginModel;
+import com.pentagon.p01_android_proj.login.LoginResponse;
+import com.pentagon.p01_android_proj.model.User;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, Callback<String> {
 
     private LinearLayout editLayout;
     private Toolbar toolbar;
@@ -144,8 +158,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             editLayout.setEnabled(false);
             return;
         }
-        Toast.makeText(this, "register", Toast.LENGTH_SHORT).show();
-        finish();
+        User user = new User(userAccountEdit.getText().toString(), userPasswordEdit.getText().toString());
+        try {
+            new LoginModel().register(this, user);
+        } catch (Exception e) {
+            Log.e("RegisterActivity.register", e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void tipsLayoutGone(View view) {
@@ -172,4 +191,27 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
 
     }
+
+    @Override
+    public void onResponse(Call<String> call, Response<String> response) {
+        Log.i("hornhuang-test-info", "" + response.body());
+        LoginResponse loginResponse = new Gson().fromJson(response.body(), LoginResponse.class);
+        if (loginResponse.getSuccess() == false) {
+            Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<String> call, Throwable t) {
+        Toast.makeText(this, "网络异常，请检查网络", Toast.LENGTH_SHORT).show();
+    }
+
+    public static void actionStart(Activity activity) {
+        Intent intent = new Intent(activity, RegisterActivity.class);
+        activity.startActivity(intent);
+    }
+
 }

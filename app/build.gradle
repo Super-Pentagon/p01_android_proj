@@ -66,7 +66,9 @@ dependencies {
     // material design
     implementation "com.google.android.material:material:${MATERIAL_VERSION}"
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
+    // OkHttp3
+    api 'com.squareup.okhttp3:okhttp:3.14.9'
+    api 'com.squareup.okio:okio:1.17.2'
     if (FLUTTER_IN_DENUG) {
         debugImplementation 'com.superpentagon.p01flutterproj:flutter_debug:1.0'
         profileImplementation 'com.superpentagon.p01flutterproj:flutter_profile:1.0'
