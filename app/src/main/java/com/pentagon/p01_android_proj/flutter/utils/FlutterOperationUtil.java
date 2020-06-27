@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
 import io.flutter.embedding.android.FlutterFragment;
+import io.flutter.embedding.engine.FlutterEngine;
 
 public class FlutterOperationUtil {
 
@@ -24,7 +25,7 @@ public class FlutterOperationUtil {
 
     public FlutterOperationUtil initFragmentById(String EngineId) {
         this.flutterFragment = FlutterFragment.withCachedEngine(EngineId)
-                .build();;
+                .build();
         return this;
     }
 
