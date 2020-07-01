@@ -1,0 +1,129 @@
+body{
+    margin: 0;
+    padding: 0;
+    
+}
+
+.head{
+    position: fixed;
+    z-index: 100;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 8%;
+    box-sizing:border-box;
+    background-color: white;
+}
+.head p{
+    font-size: 1.1em;
+    margin: 5%;
+    position: absolute;
+    /* background-color: aquamarine; */
+}
+.btn{
+    position: absolute;
+    right: 0;
+    margin: 4%;
+    font-size: 1.1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    opacity: 0.7;
+    
+    
+}
+.orderList{
+    position:absolute;
+    padding: 0;
+    top: 8%;
+    width: 100%;
+    
+    height: 90%;
+    
+    background-color:rgb(235, 230, 230);
+    
+}
+.orders{
+    position:relative;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    height: 18%;
+    background-color: white;
+    border: 10px solid white;
+    border-radius: 20px;
+    padding: 0;
+    
+}
+.orders img{
+    position: absolute;
+    margin: 0;
+    width:100px;
+    height: 100px;
+    box-sizing:border-box;
+    /* top: 50%; */
+}
+.ordersTitle{
+    position: absolute;
+    margin: 0;
+    left: 27%;
+    width: 200px;
+    height: 100px;
+    box-sizing:border-box;
+
+    /* background-color: lightblue; */
+}
+.productName{
+    position: absolute;
+    display: block;
+    width: 10em;
+    top: 0;
+    margin: 0;
+   
+
+}
+.price{
+    position: absolute;
+    display: block;
+    width: 3em;
+    bottom: 0;
+    margin: 0;  
+}
+.priceNumber{
+    position: absolute;
+    display: block;
+    left: 2.5em;
+    width: 5em;
+    bottom: 0;
+    margin: 0;  
+    padding: 0;
+}
+.ordersRight{
+    position: absolute;
+    /* height: 17%; */
+    /* right: 10em; */
+    right: 1em;
+    width: 200px;
+    height: 100px;
+    
+} 
+.statu{
+   
+    display: block;
+    top: 0;
+    margin: 0;
+    width: 13em;
+    right: 0;
+    text-align: right;
+}
+.ordersBtn{
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    margin-top: 5%;
+    width:9em;
+    
+   right: 0;
+    padding: 0.6em;
+    opacity: 0.7;
+}
