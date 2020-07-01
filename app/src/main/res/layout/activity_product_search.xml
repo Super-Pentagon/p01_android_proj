@@ -39,7 +39,7 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:background="#001851CC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/backLinearLayout"

@@ -15,11 +15,6 @@ android {
         versionName cfg.VERSION_NAME
         testInstrumentationRunner cfg.testInstrumentationRunner
         multiDexEnabled true
-        ndk {
-            // Filter for architectures supported by Flutter.
-            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
-        }
-
     }
     buildTypes {
         release {
@@ -60,6 +55,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

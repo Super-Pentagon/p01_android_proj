@@ -110,7 +110,7 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
 
     @Override
     protected void onDestroy() {
-        mProductSearchPresenter.clearReference();
+        mProductSearchPresenter.onDestroy();
         super.onDestroy();
     }
 

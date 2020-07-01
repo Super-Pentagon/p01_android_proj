@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterEngineUtils;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterOperationUtil;
 import com.pentagon.p01_android_proj.login.login.LoginActivity;
+import com.pentagon.p01_android_proj.mine.MineFragment;
 import com.pentagon.p01_android_proj.order.OrderFragment;
 import com.pentagon.p01_android_proj.search.ProductSearchActivity;
 
@@ -69,8 +70,9 @@ public class MainActivity extends AppCompatActivity {
                             return true;
 
                         case R.id.page_mine:
-                            // TODO
-                            Toast.makeText(MainActivity.this, "page_mine", Toast.LENGTH_SHORT).show();
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.main_container, new MineFragment())
+                                    .commit();
                             return true;
 
                         default:

@@ -9,7 +9,7 @@ interface IProductSearchPresenter {
 
     void searchProducts(String inputString);
 
-    void clearReference();
+    void onDestroy();
 
     void initSearchRecords();
 
