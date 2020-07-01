@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
-def cfg    = rootProject.ext.android
-def appId  = rootProject.ext.appId
+def cfg = rootProject.ext.android
+def appId = rootProject.ext.appId
 
 android {
     compileSdkVersion cfg.COMLIER_SDK_VERSION
@@ -17,7 +17,7 @@ android {
         multiDexEnabled true
         ndk {
             // Filter for architectures supported by Flutter.
-            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64','x86'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64', 'x86'
         }
 
     }
@@ -49,7 +49,7 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -65,13 +65,16 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     // material design
     implementation "com.google.android.material:material:${MATERIAL_VERSION}"
-
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    // OkHttp3
+    api 'com.squareup.okhttp3:okhttp:3.14.9'
+    api 'com.squareup.okio:okio:1.17.2'
     if (FLUTTER_IN_DENUG) {
         debugImplementation 'com.superpentagon.p01flutterproj:flutter_debug:1.0'
         profileImplementation 'com.superpentagon.p01flutterproj:flutter_profile:1.0'
         releaseImplementation 'com.superpentagon.p01flutterproj:flutter_release:1.0'
         implementation project(path: ':flutter')
-    }else {
-        implementation fileTree(dir: 'libs/flutter/debug', include: ['*.jar','*.aar'])
+    } else {
+        implementation fileTree(dir: 'libs/flutter/debug', include: ['*.jar', '*.aar'])
     }
 }

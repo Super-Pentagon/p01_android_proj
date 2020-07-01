@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    tools:context=".login.login.LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/toolbar_color"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize" />
+
+        <ImageView
+            android:id="@+id/usr_head"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
+
+        <ImageView
+            android:id="@+id/rainbow"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_gravity="center" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:cardCornerRadius="25dp">
+
+            <EditText
+                android:id="@+id/usr_account"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:paddingLeft="10dp"
+                android:hint="请输入账号"
+                android:singleLine="true" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:cardCornerRadius="25dp">
+
+            <EditText
+                android:id="@+id/usr_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:paddingLeft="10dp"
+                android:hint="请输入密码"
+                android:password="true"
+                android:singleLine="true"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/login"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/right"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:layout_marginTop="30dp"
+            android:padding="25dp"
+            android:scaleType="center"
+            app:fabCustomSize="100dp"
+            android:onClick="loginEvent"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/register"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="注册"
+                android:gravity="right"
+                android:paddingRight="25dp"
+                android:onClick="jumpToRegister"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:background="@android:drawable/divider_horizontal_textfield" />
+
+            <TextView
+                android:id="@+id/forget"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="忘记密码"
+                android:gravity="left"
+                android:paddingLeft="25dp"
+                android:onClick="jumpToForget"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wrong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="#bfffffff">
+
+        <TextView
+            android:id="@+id/wrong_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="30dp"
+            android:background="@android:drawable/divider_horizontal_textfield"/>
+
+        <TextView
+            android:id="@+id/wrong_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/deepskyblue"
+            android:onClick="tipsLayoutGone"
+            android:textSize="20sp"
+            android:text="知道了"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
