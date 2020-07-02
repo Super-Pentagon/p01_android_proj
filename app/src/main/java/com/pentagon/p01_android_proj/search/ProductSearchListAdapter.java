@@ -35,7 +35,6 @@ public class ProductSearchListAdapter
         private Product mProduct;
         private ImageView mImageView;
         private TextView mNameTextView;
-        private TextView mDeliveryTimeTextView;
         private TextView mMonthlySalesTextView;
         private TextView mPriceTextView;
 
@@ -43,7 +42,6 @@ public class ProductSearchListAdapter
             super(itemView);
             mImageView = itemView.findViewById(R.id.pictureImageView);
             mNameTextView = itemView.findViewById(R.id.nameTextView);
-            mDeliveryTimeTextView = itemView.findViewById(R.id.deliveryTimeTextView);
             mMonthlySalesTextView = itemView.findViewById(R.id.monthlySalesTextView);
             mPriceTextView = itemView.findViewById(R.id.priceTextView);
             itemView.setOnClickListener(this);
@@ -81,7 +79,6 @@ public class ProductSearchListAdapter
                 .into(imageView);
         holder.mProduct = product;
         holder.mNameTextView.setText(product.getName());
-        holder.mDeliveryTimeTextView.setText("预计" + product.getDeliveryTime() + "分钟送达");
         holder.mMonthlySalesTextView.setText("月售 " + product.getMonthlySales());
         holder.mPriceTextView.setText("￥" + product.getPrice() + "/份");
     }

@@ -16,19 +16,16 @@ public class Product implements Serializable {
     private String pictureUrl;
     //月销量
     private int monthlySales;
-    //预计送货时间（分钟）
-    private int deliveryTime;
 
-    public Product(String id, String name, String des, String sellerId, BigDecimal price
-            , String pictureUrl, int monthlySales, int deliveryTime) {
+    public Product(String id, String name, String des, String sellerId, BigDecimal price, String thumbnailUrl, String pictureUrl, int monthlySales) {
         this.id = id;
         this.name = name;
         this.des = des;
         this.sellerId = sellerId;
         this.price = price;
+        this.thumbnailUrl = thumbnailUrl;
         this.pictureUrl = pictureUrl;
         this.monthlySales = monthlySales;
-        this.deliveryTime = deliveryTime;
     }
 
     public String getId() {
@@ -57,10 +54,6 @@ public class Product implements Serializable {
 
     public int getMonthlySales() {
         return monthlySales;
-    }
-
-    public int getDeliveryTime() {
-        return deliveryTime;
     }
 
     @Override
