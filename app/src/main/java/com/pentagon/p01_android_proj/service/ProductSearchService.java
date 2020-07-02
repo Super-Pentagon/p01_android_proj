@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public interface ProductSearchService {
 //    @GET("ic_product_search/{inputString}")
-    @GET("314d9fba-9245-4e85-af36-761d1c6e9d02")
+    @GET("155c0306-bbcd-4d35-92f0-6741065b6334")
     Observable<List<Product>> getSearchedProducts(
 //            @Path("inputString") String inputString
     );

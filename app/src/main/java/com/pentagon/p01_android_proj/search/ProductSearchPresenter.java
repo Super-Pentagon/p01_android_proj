@@ -20,7 +20,7 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class ProductSearchPresenter implements IProductSearchPresenter {
+class ProductSearchPresenter implements IProductSearchPresenter {
     private final static int INTERVAL_TIME_MILLIS = 500;
     private final static String SP_KEY = "search records";
     private final static String KEY_0 = "search record 0";
