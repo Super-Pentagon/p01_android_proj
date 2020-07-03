@@ -1,5 +1,7 @@
 package com.pentagon.p01_android_proj.model;
 
+import androidx.annotation.NonNull;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +18,8 @@ public class ShoppingCart {
     }
 
     /**
+     * 获得购物车单例
+     *
      * @return 购物车单例
      */
     public static ShoppingCart getInstance() {
@@ -23,6 +27,8 @@ public class ShoppingCart {
     }
 
     /**
+     * 获得包含所有订单项的List
+     *
      * @return 所有订单项的List
      */
     public List<OrderItem> getOrderItems() {
@@ -35,13 +41,15 @@ public class ShoppingCart {
      *
      * 调用时更新购物车小计和商品种类数量
      *
+     * 商品价格参数不能为空，每次都需要根据价格修改小计
+     *
      * 方便详情页加减商品时调用而写，包括增删改功能
      *
      * @param productId 商品ID
      * @param quantity 新的商品数量
      * @param price 商品单价
      */
-    public void updateOrderItem(String productId, int quantity,BigDecimal price) {
+    public void updateOrderItem(String productId, int quantity,@NonNull BigDecimal price) {
         for (int i = 0; i < mOrderItems.size(); i++) {
             OrderItem item=mOrderItems.get(i);
             if (item.getProductId().equals(productId)) {
@@ -66,6 +74,8 @@ public class ShoppingCart {
     }
 
     /**
+     * 获得购物车中的商品种类数量
+     *
      * @return 购物车中的商品种类数量
      */
     public int getKindQuantity(){
@@ -73,6 +83,8 @@ public class ShoppingCart {
     }
 
     /**
+     * 获得购物车中所有商品的总价（小计）
+     *
      * @return 购物车中所有商品的总价（小计）
      */
     public BigDecimal getSubtotal(){
@@ -80,6 +92,8 @@ public class ShoppingCart {
     }
 
     /**
+     * 根据商品ID查找指定商品的数量
+     *
      * @param productId 商品ID
      * @return 指定商品的数量，不存在则返回0
      */

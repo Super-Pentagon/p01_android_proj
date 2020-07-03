@@ -25,6 +25,7 @@ import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.pentagon.p01_android_proj.R;
 import com.pentagon.p01_android_proj.model.Product;
+import com.pentagon.p01_android_proj.model.ShoppingCart;
 import com.pentagon.p01_android_proj.util.LogHelper;
 
 
