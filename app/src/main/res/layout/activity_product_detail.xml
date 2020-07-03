@@ -6,44 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".detail.ProductDetailActivity">
 
-    <LinearLayout
-        android:id="@+id/backLinearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:padding="12dp"
-            android:paddingEnd="0dp"
-            android:scaleType="fitCenter"
-            android:tint="#2196F3"
-            app:srcCompat="@drawable/ic_back" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Back"
-            android:textColor="#2196F3"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/picture"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backLinearLayout"
+        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -53,7 +23,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textColor="#DB3A32"
+        android:textColor="#F44336"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name"
@@ -72,7 +42,8 @@
         tools:text="月售15" />
 
     <LinearLayout
-        android:layout_width="120dp"
+        android:id="@+id/linearLayout3"
+        android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
@@ -82,9 +53,8 @@
 
         <ImageView
             android:id="@+id/minus"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/ic_minus" />
 
@@ -99,9 +69,8 @@
 
         <ImageView
             android:id="@+id/plus"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:adjustViewBounds="true"
             app:srcCompat="@drawable/ic_plus" />
     </LinearLayout>
@@ -154,41 +123,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="50dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_shopping_bag" />
 
         <TextView
             android:id="@+id/subtotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="82dp"
             android:text="￥0"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/kindQuantity"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/shape_red_circle"
-        android:gravity="center"
-        android:text="0"
-        android:textColor="@android:color/white"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/name"
@@ -203,5 +150,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/picture"
         tools:text="红烧肉" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/shoppingCart"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.6"
+        app:lottie_rawRes="@raw/shopping_basket"
+        app:lottie_speed="5" />
+
+    <TextView
+        android:id="@+id/kindQuantity"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/shape_red_circle"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout" />
+
+    <FrameLayout
+        android:id="@+id/backLinearLayout"
+        android:layout_width="95dp"
+        android:layout_height="55dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:background="@drawable/shape_translucence_gray" />
+
+        <LinearLayout
+            android:layout_width="95dp"
+            android:layout_height="55dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:paddingEnd="0dp"
+                android:scaleType="fitCenter"
+                android:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Back"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

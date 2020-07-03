@@ -40,18 +40,16 @@ class ProductSearchPresenter implements IProductSearchPresenter {
 
     @Override
     public void tryToSearch() {
-        if (mTimer != null) {
-            synchronized (mTimer) {
-                if (!mIsCanceled) {
-                    mTimer.cancel();
-                }
-            }
+        if (mTimer != null && !mIsCanceled) {
+            mTimer.cancel();
         }
         mTimer = new Timer();
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                mProductSearchView.onReadyForSearching();
+                ((ProductSearchActivity) mProductSearchView).runOnUiThread(
+                        () -> mProductSearchView.onReadyForSearching()
+                );
                 mIsCanceled = true;
             }
         }, INTERVAL_TIME_MILLIS);

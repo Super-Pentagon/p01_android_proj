@@ -17,17 +17,6 @@ public class Product implements Serializable {
     //月销量
     private int monthlySales;
 
-    public Product(String id, String name, String des, String sellerId, BigDecimal price, String thumbnailUrl, String pictureUrl, int monthlySales) {
-        this.id = id;
-        this.name = name;
-        this.des = des;
-        this.sellerId = sellerId;
-        this.price = price;
-        this.thumbnailUrl = thumbnailUrl;
-        this.pictureUrl = pictureUrl;
-        this.monthlySales = monthlySales;
-    }
-
     public String getId() {
         return id;
     }
@@ -46,6 +35,10 @@ public class Product implements Serializable {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
     public String getPictureUrl() {

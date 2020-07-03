@@ -144,7 +144,7 @@
             android:singleLine="true"
             android:text="脆脆鲨"
             android:textAllCaps="false"
-            android:textColor="@color/gray" />
+            android:textColor="@android:color/tertiary_text_dark" />
 
         <Button
             android:id="@+id/button7"

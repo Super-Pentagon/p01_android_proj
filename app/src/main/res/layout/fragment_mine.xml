@@ -130,7 +130,7 @@
                 android:textColor="@android:color/black" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/shoppingCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_arrow_right" />

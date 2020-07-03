@@ -11,12 +11,18 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.pentagon.p01_android_proj.R;
 import com.pentagon.p01_android_proj.model.Product;
 import com.pentagon.p01_android_proj.util.LogHelper;
@@ -31,7 +37,6 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
     private Editable mInputEditable;
     private Button[] mButtons = new Button[8];
     private EditText mEditText;
-    private ConstraintLayout mListLayout;
     private ConstraintLayout mQuickSearchLayout;
     private CheckBox mSalesCheckBox;
     private CheckBox mPriceCheckBox;
@@ -39,6 +44,8 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
     private int tintColorUnchecked;
     private Drawable mDrawableChecked;
     private Drawable mDrawableUnchecked;
+    private SpinKitView mSpinKitView;
+    private TextView mInfoText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +67,12 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
         mAdapter = new ProductSearchListAdapter(this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this
-                , DividerItemDecoration.VERTICAL));
         LinearLayout backLinearLayout = findViewById(R.id.backLinearLayout);
-        mListLayout = findViewById(R.id.listLayout);
         mQuickSearchLayout = findViewById(R.id.quickSearchLayout);
         mSalesCheckBox = findViewById(R.id.salesCheckBox);
         mPriceCheckBox = findViewById(R.id.priceCheckBox);
+        mSpinKitView=findViewById(R.id.spinKit);
+        mInfoText=findViewById(R.id.info);
         mTintColorChecked = getResources().getColor(R.color.colorAccent);
         tintColorUnchecked = getResources().getColor(R.color.gray);
         mDrawableChecked = getResources().getDrawable(R.drawable.drawable_round_rect_accent);
@@ -122,7 +128,6 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
         mEditText.setText(inputSequence);
         mProductSearchPresenter.searchProducts(inputString);
         mQuickSearchLayout.setVisibility(View.INVISIBLE);
-        mListLayout.setVisibility(View.VISIBLE);
         switch (v.getId()) {
             case R.id.button:
             case R.id.button2:
@@ -160,6 +165,8 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
 
     @Override
     public void onReadyForSearching() {
+        mQuickSearchLayout.setVisibility(View.INVISIBLE);
+        mSpinKitView.setVisibility(View.VISIBLE);
         String string = mInputEditable.toString();
         mProductSearchPresenter.searchProducts(string);
         mProductSearchPresenter.saveSearchRecord(string);
@@ -167,12 +174,16 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
 
     @Override
     public void onSearchCompleted(List<Product> products) {
-        mQuickSearchLayout.setVisibility(View.INVISIBLE);
-        mListLayout.setVisibility(View.VISIBLE);
         mAdapter.setProducts(products);
-        mAdapter.notifyDataSetChanged();
         mSalesCheckBox.setVisibility(View.VISIBLE);
         mPriceCheckBox.setVisibility(View.VISIBLE);
+        mAdapter.notifyDataSetChanged();
+        if(products.size()==0){
+            mInfoText.setVisibility(View.VISIBLE);
+        }else{
+            mInfoText.setVisibility(View.INVISIBLE);
+        }
+        mSpinKitView.setVisibility(View.INVISIBLE);
     }
 
     @Override

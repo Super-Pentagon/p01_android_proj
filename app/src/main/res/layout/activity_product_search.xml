@@ -77,7 +77,9 @@
                 android:ems="10"
                 android:hint="在此搜索想要的商品"
                 android:inputType="text"
-                android:maxLength="15" />
+                android:maxLength="15"
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -87,26 +89,11 @@
         android:id="@+id/listLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backLinearLayout">
-
-        <CheckBox
-            android:id="@+id/priceCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/drawable_round_rect"
-            android:button="@drawable/selector_sort_button"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:text="价格"
-            android:textColor="@color/gray"
-            android:visibility="invisible"
-            app:layout_constraintStart_toEndOf="@+id/salesCheckBox"
-            app:layout_constraintTop_toTopOf="@+id/salesCheckBox" />
 
         <CheckBox
             android:id="@+id/salesCheckBox"
@@ -123,6 +110,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <CheckBox
+            android:id="@+id/priceCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/drawable_round_rect"
+            android:button="@drawable/selector_sort_button"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="价格"
+            android:textColor="@color/gray"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/salesCheckBox"
+            app:layout_constraintTop_toTopOf="@+id/salesCheckBox" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
@@ -132,6 +134,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/salesCheckBox" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/spinKit"
+            style="@style/SpinKitView.Wave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:visibility="invisible"
+            app:SpinKit_Color="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有类似的商品~"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/spinKit"
+            app:layout_constraintEnd_toEndOf="@+id/spinKit"
+            app:layout_constraintStart_toStartOf="@+id/spinKit"
+            app:layout_constraintTop_toTopOf="@+id/spinKit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
