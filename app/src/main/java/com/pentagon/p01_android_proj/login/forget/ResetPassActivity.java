@@ -26,23 +26,23 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 import com.pentagon.p01_android_proj.R;
 import com.pentagon.p01_android_proj.login.LoginModel;
-import com.pentagon.p01_android_proj.login.LoginResponse;
 import com.pentagon.p01_android_proj.model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ResetPassActivity extends AppCompatActivity implements View.OnClickListener, Callback<String> {
+public class ResetPassActivity extends AppCompatActivity implements View.OnClickListener, Callback<ForgetResponse> {
+
+    private final static String USER_PASSWORD = "user_password";
 
     private LinearLayout editLayout;
     private Toolbar toolbar;
     private ImageView rainbowImage;
-    private EditText userAccountEdit;
     private EditText userPasswordEdit;
+    private EditText userPasswordAgainEdit;
     private FloatingActionButton fab;
     private TextView registerText;
     private TextView forgetText;
@@ -63,8 +63,8 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
         editLayout = findViewById(R.id.edit_layout);
         toolbar = findViewById(R.id.toolbar);
         rainbowImage = findViewById(R.id.rainbow);
-        userAccountEdit = findViewById(R.id.usr_account);
         userPasswordEdit = findViewById(R.id.usr_password);
+        userPasswordAgainEdit = findViewById(R.id.usr_password_again);
         fab = findViewById(R.id.login);
         registerText = findViewById(R.id.register);
         wrongLayout = findViewById(R.id.wrong);
@@ -72,8 +72,8 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
         wrongOkTextView = findViewById(R.id.wrong_ok);
 
         toolbar.setOnClickListener(this);
-        userAccountEdit.setOnClickListener(this);
         userPasswordEdit.setOnClickListener(this);
+        userPasswordAgainEdit.setOnClickListener(this);
         editLayout.setOnClickListener(this);
     }
 
@@ -114,25 +114,34 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void resetEvent(View view) {
-        if (userAccountEdit.getText().toString() == null || userAccountEdit.getText().toString().equals("")) {
-            wrongTipsTextView.setText("账号不能为空");
-            wrongLayout.setVisibility(View.VISIBLE);
-            toolbar.setEnabled(false);
-            userAccountEdit.setEnabled(false);
-            userPasswordEdit.setEnabled(false);
-            editLayout.setEnabled(false);
-            return;
-        }
-        if (userPasswordEdit.getText().toString() == null || userPasswordEdit.getText().toString().equals("")) {
+        if (userPasswordEdit.getText().toString().equals("")) {
             wrongTipsTextView.setText("密码不能为空");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
-            userAccountEdit.setEnabled(false);
             userPasswordEdit.setEnabled(false);
+            userPasswordAgainEdit.setEnabled(false);
             editLayout.setEnabled(false);
             return;
         }
-        User user = new User(userAccountEdit.getText().toString(), userPasswordEdit.getText().toString());
+        if (userPasswordAgainEdit.getText().toString().equals("")) {
+            wrongTipsTextView.setText("确认密码不能为空");
+            wrongLayout.setVisibility(View.VISIBLE);
+            toolbar.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            userPasswordAgainEdit.setEnabled(false);
+            editLayout.setEnabled(false);
+            return;
+        }
+        if (userPasswordAgainEdit.getText().toString().equals(userPasswordEdit.getText().toString())) {
+            wrongTipsTextView.setText("两次密码不一样");
+            wrongLayout.setVisibility(View.VISIBLE);
+            toolbar.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            userPasswordAgainEdit.setEnabled(false);
+            editLayout.setEnabled(false);
+            return;
+        }
+        User user = new User(getIntent().getStringExtra(USER_PASSWORD), userPasswordAgainEdit.getText().toString());
         try {
             new LoginModel().reset(this, user);
         } catch (Exception e) {
@@ -144,8 +153,8 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
     public void tipsLayoutGone(View view) {
         wrongLayout.setVisibility(View.GONE);
         toolbar.setEnabled(true);
-        userAccountEdit.setEnabled(true);
         userPasswordEdit.setEnabled(true);
+        userPasswordAgainEdit.setEnabled(true);
         editLayout.setEnabled(true);
     }
 
@@ -166,10 +175,10 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void onResponse(Call<String> call, Response<String> response) {
+    public void onResponse(Call<ForgetResponse> call, Response<ForgetResponse> response) {
         Log.i("hornhuang-test-info", "" + response.body());
-        LoginResponse loginResponse = new Gson().fromJson(response.body(), LoginResponse.class);
-        if (loginResponse.getSuccess() == false) {
+        ForgetResponse loginResponse = response.body();
+        if (loginResponse.isSuccess() == false) {
             Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "密码重置成功", Toast.LENGTH_SHORT).show();
@@ -178,13 +187,14 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void onFailure(Call<String> call, Throwable t) {
+    public void onFailure(Call<ForgetResponse> call, Throwable t) {
         Log.e("ResetPassActivity.reset",t.toString());
         Toast.makeText(this, "请检查网络", Toast.LENGTH_SHORT).show();
     }
 
-    public static void actionStart(Activity activity) {
+    public static void actionStart(Activity activity, String user_password) {
         Intent intent = new Intent(activity, ResetPassActivity.class);
+        intent.putExtra(USER_PASSWORD, user_password);
         activity.startActivity(intent);
     }
 

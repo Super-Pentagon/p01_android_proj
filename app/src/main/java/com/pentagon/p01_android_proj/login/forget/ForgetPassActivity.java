@@ -136,7 +136,7 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
             editLayout.setEnabled(false);
             return;
         }
-        ResetPassActivity.actionStart(this);
+        ResetPassActivity.actionStart(this, userAccountEdit.getText().toString());
         finish();
     }
 
