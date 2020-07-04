@@ -6,26 +6,38 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.pentagon.p01_android_proj.R;
+import com.pentagon.p01_android_proj.model.ShoppingCart;
 import com.pentagon.p01_android_proj.order.OrderFragment;
 
 public class ShoppingCartActivity extends AppCompatActivity {
 
     private WebView webview;
 
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            double number = Math.random();
+            webview.loadUrl("javascript:javaCallJs('" + "[{\"orderId\":\"a9c8d760-6036-48a8-ab22-f7e86ff89937\",\"productId\":\"[goods_id, 12345678900]\",\"quantity\":2},{\"orderId\":\"a9cf621f-f892-4d4c-b98f-1017cbbc8654\",\"productId\":\"[goods_id, 1278246495526612993]\",\"quantity\":1}]" + "')");
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
         //方法2：在Activity的layout文件里添加webview控件：
-        webview = findViewById(R.id.product_web_view);
+        webview = findViewById(R.id.shop_cart_web_view);
         initWebView();
     }
 
@@ -72,16 +84,16 @@ public class ShoppingCartActivity extends AppCompatActivity {
     }
 
     class AndroidAndJSInterface {
+
         @JavascriptInterface
-        public void getJSONProductList() {
+        public void registration1() {
             Toast.makeText(ShoppingCartActivity.this, "registration1", Toast.LENGTH_SHORT).show();
-            int number = 998;
-            webview.loadUrl("javascript:javaCallJs('" + number + "')");
         }
 
         @JavascriptInterface
         public void loading() {
             Toast.makeText(ShoppingCartActivity.this, "loading", Toast.LENGTH_SHORT).show();
+            handler.sendEmptyMessage(0x0);
         }
 
         @JavascriptInterface

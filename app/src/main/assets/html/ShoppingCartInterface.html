@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -51,20 +51,36 @@
 
 
         </ul>
-
-        <input type="text" class="appp" onclick="window.Android.getJSONProductList(value);">
+          <div id="app">
+            <p v-bind="window.Android.loading()">{{this.pro}}</p>
+        </div>
+        
         <div id="bottom" class="bottom">
             <span class="amount">￥ {{amount()}}</span>
-            <span class="payBtn" @click="Pay()">支付</span>
+            <span class="payBtn" onclick="window.Android.loading()">支付</span>
         </div>
     </div>
     <script src="../script/jQuery.js"></script>
     <script src="../script/shoppingCartScript.js"></script>
     <script src="../script/vue.js"></script>
-    <script>
+    <script type="text/javascript">
+
+
+        let app=new Vue({
+            el:"#app",
+            data:{
+                pro:"",
+            },
+            methods:{
+                JavaCallJs(value){
+                    this.pro = value;
+                }
+            }
+
+        });
+
       window.onload=function(){
-        
-        
+
         var proVm = new Vue({
             el: "#merchandiseList",
             data: {
@@ -167,7 +183,7 @@
         var span =document.querySelector(".appp");
         
         function getJSONProductList(value) {
-            return value;
+            span.innerHTML = value
 
         }
         // function getJSONProductList(proList) {

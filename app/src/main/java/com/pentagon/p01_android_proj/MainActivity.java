@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.pentagon.p01_android_proj.detail.ProductDetailActivity;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterEngineUtils;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterOperationUtil;
+import com.pentagon.p01_android_proj.login.register.RegisterActivity;
 import com.pentagon.p01_android_proj.mine.MineFragment;
 import com.pentagon.p01_android_proj.model.Product;
 import com.pentagon.p01_android_proj.model.ShoppingCart;
@@ -101,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements Callback<ProductR
         navigationView.setOnNavigationItemSelectedListener(navigationItemReselectedListener);
         navigationView.setSelectedItemId(R.id.page_take_out);
         mainContainer = findViewById(R.id.main_container);
-
-//        ShoppingCartActivity.actionStart(this);
     }
 
     @Override
