@@ -1,14 +1,10 @@
 package com.pentagon.p01_android_proj.login;
 
-import android.util.Log;
-
-import com.pentagon.p01_android_proj.login.UserMgrService;
 import com.pentagon.p01_android_proj.model.User;
-import com.pentagon.p01_android_proj.util.ApiUtils;
+import com.pentagon.p01_android_proj.util.http.ApiUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

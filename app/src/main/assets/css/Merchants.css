@@ -1,0 +1,128 @@
+body{
+    margin: 0;
+    padding: 0;
+   
+}
+.background{
+    position: relative;
+    width: 100%;
+    height: 800px;
+    /* background-color: lightblue; */
+    margin: 0;
+    padding: 0;
+
+}
+.main{
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+    top: 50%;
+    margin-top: -250px;
+    width: 300px;
+    height: 500px;
+
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    background: #00BFFF;
+}
+.shopName {
+    margin-top: 15px;
+    
+    font-size: 2em;
+    
+
+}
+
+.infotext{
+    margin-top: 30px;
+    font-size: 1.5em;
+}
+.users{
+    margin-top: 5px;
+
+}
+.users input{
+    width: 15em;
+    height: 2em;
+    
+}
+.password{
+    margin-top: 10px;
+}
+.password input{
+    width: 15em;
+    height: 2em;
+}
+.landingBtn{
+    margin-top: 10px;
+    width:100%;
+}
+/* .landBtn{
+    font-size: 1.2em;
+    width: 4em;
+    height: 2em;
+} */
+.logo img{
+    margin-top: 50px;
+    width: 150px;
+    height: 150px;
+}
+
+a.animBtn:link, a.animBtn:visited {
+  
+    position: relative;
+    display: block;
+    width: 100px;
+    margin: 10px auto 0;
+    padding: 10px 10px;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    letter-spacing: .08em;
+    text-shadow:0 1px 1px rgba(0,0,0,0.2);
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+  }
+  a.animBtn:link:after, a.animBtn:visited:after {
+    content: "";
+    position: absolute;
+    background:none repeat scroll 0 0 #fff;
+    height: 0%;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    z-index: -1;
+    -webkit-transition: all .3s ease 0s;
+    -moz-transition: all .3s ease 0s;
+    -o-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+  }
+  a.animBtn:link:hover, a.animBtn:visited:hover {
+    color: #333;
+    text-shadow: none;
+  }
+  a.animBtn:link:hover:after, a.animBtn:visited:hover:after {
+    height: 420%;
+  }
+a.animBtn.themeD:after {
+    width: 0%;
+    border-radius: 50%;
+    opacity: .5;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+  }
+  a.animBtn.themeD:hover:after {
+    height: 450%;
+    width: 110%;
+    opacity: 1;
+  }

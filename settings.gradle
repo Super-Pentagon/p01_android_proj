@@ -13,3 +13,6 @@ if (FLUTTER_IN_DENUG) {
     include ':p01_flutter_proj'
     project(':p01_flutter_proj').projectDir = new File('../p01_flutter_proj')
 }
+
+include ':p01_flutter_proj'
+project(':p01_flutter_proj').projectDir = new File('../p01_flutter_proj')
