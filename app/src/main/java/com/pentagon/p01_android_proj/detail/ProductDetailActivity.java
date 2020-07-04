@@ -25,12 +25,14 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.pentagon.p01_android_proj.R;
+import com.pentagon.p01_android_proj.login.login.LoginActivity;
 import com.pentagon.p01_android_proj.model.Product;
 import com.pentagon.p01_android_proj.model.ShoppingCart;
 import com.pentagon.p01_android_proj.product.ShoppingCartActivity;
 import com.pentagon.p01_android_proj.search.ProductSearchListAdapter;
 import com.pentagon.p01_android_proj.util.LogHelper;
 import com.pentagon.p01_android_proj.util.MeasureUtil;
+import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 
 import java.math.BigDecimal;
 
@@ -129,7 +131,11 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
 
         pay.setOnClickListener(v -> {
             //TODO start order confirm activity
-            ShoppingCartActivity.actionStart(this);
+            if (UserPreferenceUtil.isUserLogin(this)) {
+                ShoppingCartActivity.actionStart(this);
+            } else {
+                LoginActivity.actionStart(this);
+            }
         });
 
         mCartAnimView.setProgress(1);
