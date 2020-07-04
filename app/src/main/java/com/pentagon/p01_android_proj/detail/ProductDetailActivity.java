@@ -26,6 +26,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.pentagon.p01_android_proj.R;
 import com.pentagon.p01_android_proj.model.Product;
+import com.pentagon.p01_android_proj.model.ShoppingCart;
+import com.pentagon.p01_android_proj.product.ShoppingCartActivity;
 import com.pentagon.p01_android_proj.search.ProductSearchListAdapter;
 import com.pentagon.p01_android_proj.util.LogHelper;
 import com.pentagon.p01_android_proj.util.MeasureUtil;
@@ -127,6 +129,7 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
 
         pay.setOnClickListener(v -> {
             //TODO start order confirm activity
+            ShoppingCartActivity.actionStart(this);
         });
 
         mCartAnimView.setProgress(1);
