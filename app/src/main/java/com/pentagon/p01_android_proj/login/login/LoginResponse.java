@@ -1,7 +1,10 @@
-package com.pentagon.p01_android_proj.login;
+package com.pentagon.p01_android_proj.login.login;
 
+/**
+ * @author: Create by huangyuanhao on 2020-07-04
+ * @email: 814484626@qq.com
+ */
 public class LoginResponse {
-
 
     /**
      * success : true

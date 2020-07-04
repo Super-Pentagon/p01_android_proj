@@ -39,7 +39,7 @@
             app:cardCornerRadius="25dp">
 
             <EditText
-                android:id="@+id/usr_account"
+                android:id="@+id/usr_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
@@ -60,7 +60,7 @@
             app:cardCornerRadius="25dp">
 
             <EditText
-                android:id="@+id/usr_password"
+                android:id="@+id/usr_password_again"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"

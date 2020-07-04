@@ -33,12 +33,13 @@ import com.pentagon.p01_android_proj.login.LoginResponse;
 import com.pentagon.p01_android_proj.login.forget.ForgetPassActivity;
 import com.pentagon.p01_android_proj.login.register.RegisterActivity;
 import com.pentagon.p01_android_proj.model.User;
+import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Callback<String> {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Callback<LoginResponse> {
 
     private LinearLayout editLayout;
     private Toolbar toolbar;
@@ -180,19 +181,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onResponse(Call<String> call, Response<String> response) {
+    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         Log.i("hornhuang-test-info", "" + response.body());
-        LoginResponse loginResponse = new Gson().fromJson(response.body(), LoginResponse.class);
-        if (loginResponse.getSuccess() == false) {
+        LoginResponse loginResponse = response.body();
+        if (loginResponse.isSuccess() == false) {
             Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
         } else {
+            UserPreferenceUtil.setUserId(this, loginResponse.getData().getBuyer().getBid());
             Toast.makeText(this, "登陆成功", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
 
     @Override
-    public void onFailure(Call<String> call, Throwable t) {
+    public void onFailure(Call<LoginResponse> call, Throwable t) {
         Log.e("LoginActivity.login",t.toString());
         Toast.makeText(this, "请检查网络", Toast.LENGTH_SHORT).show();
     }
