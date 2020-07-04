@@ -1,7 +1,6 @@
-package com.pentagon.p01_android_proj.product;
+package com.pentagon.p01_android_proj.product.model;
 
-import com.pentagon.p01_android_proj.login.UserMgrService;
-import com.pentagon.p01_android_proj.model.Product;
+import com.pentagon.p01_android_proj.product.bean.ProductResponse;
 import com.pentagon.p01_android_proj.util.http.ApiUtils;
 
 import retrofit2.Call;
@@ -16,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProductModel {
 
 
-    public void getProductById(String productId, Callback<Object> callBack) {
+    public void getProductById(String productId, Callback<ProductResponse> callBack) {
         // baseUrl() 设置路由地址
         Retrofit retrofit = new Retrofit
                 .Builder()
@@ -25,7 +24,7 @@ public class ProductModel {
                 .build();
 
         // 设置参数
-        Call<Object> call = retrofit.create(ProductMgrService.class)
+        Call<ProductResponse> call = retrofit.create(ProductMgrService.class)
                 .getProductById(productId);
 
         // 回调

@@ -1,4 +1,6 @@
-package com.pentagon.p01_android_proj.product;
+package com.pentagon.p01_android_proj.product.model;
+
+import com.pentagon.p01_android_proj.product.bean.ProductResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -20,7 +22,7 @@ public interface ProductMgrService {
      */
 //    @FormUrlEncoded
     @GET("getProductById/{good_id}")
-    Call<Object> getProductById(@Path("good_id") String good_id);
+    Call<ProductResponse> getProductById(@Path("good_id") String good_id);
 
 
 //    @POST("/GetDetailWithMonthWithCode")

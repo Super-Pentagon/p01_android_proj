@@ -7,6 +7,6 @@
     </base-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">free.shenzhuo.vip</domain>
-        <domain includeSubdomains="true">47.107.132.227</domain>
+        <domain includeSubdomains="true">img06.fn-mart.com</domain>
     </domain-config>
 </network-security-config>

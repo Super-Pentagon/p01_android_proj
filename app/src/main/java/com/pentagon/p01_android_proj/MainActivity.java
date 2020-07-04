@@ -1,9 +1,7 @@
 package com.pentagon.p01_android_proj;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +14,13 @@ import com.google.gson.Gson;
 import com.pentagon.p01_android_proj.detail.ProductDetailActivity;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterEngineUtils;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterOperationUtil;
-import com.pentagon.p01_android_proj.login.login.LoginActivity;
 import com.pentagon.p01_android_proj.mine.MineFragment;
 import com.pentagon.p01_android_proj.model.Product;
 import com.pentagon.p01_android_proj.model.ShoppingCart;
 import com.pentagon.p01_android_proj.order.OrderFragment;
-import com.pentagon.p01_android_proj.product.ProductModel;
+import com.pentagon.p01_android_proj.product.ShoppingCartActivity;
+import com.pentagon.p01_android_proj.product.bean.ProductResponse;
+import com.pentagon.p01_android_proj.product.model.ProductModel;
 import com.pentagon.p01_android_proj.search.ProductSearchActivity;
 
 import java.math.BigDecimal;
@@ -31,15 +30,13 @@ import java.util.Map;
 import io.flutter.Log;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.FlutterEngineCache;
-import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.view.FlutterMain;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements Callback<Object> {
+public class MainActivity extends AppCompatActivity implements Callback<ProductResponse> {
 
     private FrameLayout mainContainer;
 
@@ -64,12 +61,6 @@ public class MainActivity extends AppCompatActivity implements Callback<Object> 
                                             result.success("2");
                                             List<String> msg = (List<String>) call.arguments;
                                             new ProductModel().getProductById(msg.get(msg.size()-1), MainActivity.this);
-                                            Product product = new Product();
-                                            product.setId(msg.toString());
-                                            product.setPrice(new BigDecimal(9.9));
-                                            Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
-                                            intent.putExtra("product", product);
-                                            startActivity(intent);
                                             Toast.makeText(MainActivity.this, "jumpToDetail" + msg.get(msg.size()-1), Toast.LENGTH_SHORT).show();
                                             break;
                                         case "jumpToSearch":
@@ -110,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements Callback<Object> 
         navigationView.setOnNavigationItemSelectedListener(navigationItemReselectedListener);
         navigationView.setSelectedItemId(R.id.page_take_out);
         mainContainer = findViewById(R.id.main_container);
+
+//        ShoppingCartActivity.actionStart(this);
     }
 
     @Override
@@ -120,15 +113,24 @@ public class MainActivity extends AppCompatActivity implements Callback<Object> 
     }
 
     @Override
-    public void onResponse(Call<Object> call, Response<Object> response) {
-        Map<String, Object> map = new Gson().fromJson("{success=true, code=20000.0, message=成功, data={product={pid=12345678900, price=1.0, sid=778, des=卫龙好吃, purl=http://img06.fn-mart.com/C/show/detail/image/20151029/30fa36023164d13aa4bab697b6af2d66.jpg, thumbnailurl=http://img06.fn-mart.com/C/show/detail/image/20151029/30fa36023164d13aa4bab697b6af2d66.jpg, pname=卫龙, monthlysales=10.0}}}", Map.class);
+    public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+        ProductResponse productResponse = response.body();
+        Toast.makeText(this, productResponse.toString(), Toast.LENGTH_LONG).show();
+        Product product = new Product();
+        product.setPrice(BigDecimal.valueOf(productResponse.getData().getProduct().getPrice()));
+        product.setId(productResponse.getData().getProduct().getPid());
+        product.setPictureUrl(productResponse.getData().getProduct().getPurl());
+        product.setDes(productResponse.getData().getProduct().getDes());
+        product.setThumbnailUrl(productResponse.getData().getProduct().getThumbnailurl());
 
-        Log.d("MainActivity---》", map.get("data").toString());
-        Toast.makeText(this, response.body().toString(), Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+        intent.putExtra("product", product);
+        startActivity(intent);
     }
 
     @Override
-    public void onFailure(Call<Object> call, Throwable t) {
+    public void onFailure(Call<ProductResponse> call, Throwable t) {
+        Log.e("MainActivity---》", t.getMessage());
         Toast.makeText(this, "onFailure", Toast.LENGTH_LONG).show();
     }
 }
