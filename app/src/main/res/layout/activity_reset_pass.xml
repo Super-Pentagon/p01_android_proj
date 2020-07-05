@@ -45,6 +45,7 @@
                 android:layout_gravity="center"
                 android:background="@null"
                 android:paddingLeft="10dp"
+                android:password="true"
                 android:singleLine="true"
                 android:hint="请输入新密码" />
 

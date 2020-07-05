@@ -8,9 +8,34 @@ public class User {
     public User() {
     }
 
-    public User(String password, String username) {
-        this.password = password;
-        this.username = username;
+    public static UserBuilder init() {
+        return new UserBuilder();
+    }
+
+    public static class UserBuilder {
+
+        String password;
+        String username;
+
+        private UserBuilder() {}
+
+        public UserBuilder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public User build() {
+            User user = new User();
+            user.setPassword(password);
+            user.setUsername(username);
+            return user;
+        }
+
     }
 
     public String getPassword() {
