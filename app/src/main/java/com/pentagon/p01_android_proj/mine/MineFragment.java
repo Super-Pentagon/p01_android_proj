@@ -1,5 +1,6 @@
 package com.pentagon.p01_android_proj.mine;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.pentagon.p01_android_proj.R;
 import com.pentagon.p01_android_proj.login.login.LoginActivity;
@@ -18,6 +21,10 @@ import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
  * create an instance of this fragment.
  */
 public class MineFragment extends Fragment {
+
+    private TextView userNameText;
+    private TextView userSignatureText;
+    private ImageView userHeadImage;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,7 +70,20 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        initViews(view);
+        checkData();
+        return view;
+    }
+
+    private void checkData() {
+
+    }
+
+    private void initViews(View view) {
+        userNameText = view.findViewById(R.id.textView);
+        userSignatureText = view.findViewById(R.id.textView2);
+        userHeadImage = view.findViewById(R.id.imageView3);
     }
 
     public void checkLog(View view) {
