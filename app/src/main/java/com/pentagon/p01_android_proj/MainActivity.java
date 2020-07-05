@@ -1,9 +1,7 @@
 package com.pentagon.p01_android_proj;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,21 +10,35 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.pentagon.p01_android_proj.detail.ProductDetailActivity;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterEngineUtils;
 import com.pentagon.p01_android_proj.flutter.utils.FlutterOperationUtil;
-import com.pentagon.p01_android_proj.login.login.LoginActivity;
+import com.pentagon.p01_android_proj.login.register.RegisterActivity;
 import com.pentagon.p01_android_proj.mine.MineFragment;
+import com.pentagon.p01_android_proj.model.Product;
+import com.pentagon.p01_android_proj.model.ShoppingCart;
 import com.pentagon.p01_android_proj.order.OrderFragment;
+import com.pentagon.p01_android_proj.product.ShoppingCartActivity;
+import com.pentagon.p01_android_proj.product.bean.ProductResponse;
+import com.pentagon.p01_android_proj.product.model.ProductModel;
 import com.pentagon.p01_android_proj.search.ProductSearchActivity;
+import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
+import io.flutter.Log;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.FlutterEngineCache;
-import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
-import io.flutter.view.FlutterMain;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Callback<ProductResponse> {
 
     private FrameLayout mainContainer;
 
@@ -49,16 +61,14 @@ public class MainActivity extends AppCompatActivity {
                                     switch (call.method){
                                         case "jumpToDetail":
                                             result.success("2");
-                                            Toast.makeText(MainActivity.this, "jumpToDetail", Toast.LENGTH_SHORT).show();
+                                            List<String> msg = (List<String>) call.arguments;
+                                            new ProductModel().getProductById(msg.get(msg.size()-1), MainActivity.this);
                                             break;
                                         case "jumpToSearch":
                                             result.success("成功啦");
-                                            String msg = call.argument("msg");
-                                            Toast.makeText(MainActivity.this, "jumpToSearch", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent( MainActivity.this, ProductSearchActivity.class));
+                                            startActivity(new Intent(  MainActivity.this, ProductSearchActivity.class));
                                             break;
                                         default:
-                                            Toast.makeText(MainActivity.this, "未匹配到对应的方法", Toast.LENGTH_SHORT).show();
                                             result.error("404", "未匹配到对应的方法"+call.method, null);
                                     }
                                 }
@@ -92,4 +102,29 @@ public class MainActivity extends AppCompatActivity {
         mainContainer = findViewById(R.id.main_container);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("MainActivity", new Gson().toJson(ShoppingCart.getInstance().getOrderItems()));
+    }
+
+    @Override
+    public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+        ProductResponse productResponse = response.body();
+        Product product = new Product();
+        product.setPrice(BigDecimal.valueOf(productResponse.getData().getProduct().getPrice()));
+        product.setId(productResponse.getData().getProduct().getPid());
+        product.setPictureUrl(productResponse.getData().getProduct().getPurl());
+        product.setDes(productResponse.getData().getProduct().getDes());
+        product.setThumbnailUrl(productResponse.getData().getProduct().getThumbnailurl());
+
+        Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+        intent.putExtra("product", product);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onFailure(Call<ProductResponse> call, Throwable t) {
+        Log.e("MainActivity---》", t.getMessage());
+    }
 }

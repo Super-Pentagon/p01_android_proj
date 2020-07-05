@@ -33,6 +33,7 @@ import com.pentagon.p01_android_proj.R;
 import com.pentagon.p01_android_proj.login.LoginModel;
 import com.pentagon.p01_android_proj.login.LoginResponse;
 import com.pentagon.p01_android_proj.model.User;
+import com.pentagon.p01_android_proj.util.LogHelper;
 
 import org.json.JSONObject;
 
@@ -40,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, Callback<String> {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, Callback<RegisterResponse> {
 
     private LinearLayout editLayout;
     private Toolbar toolbar;
@@ -158,7 +159,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             editLayout.setEnabled(false);
             return;
         }
-        User user = new User(userAccountEdit.getText().toString(), userPasswordEdit.getText().toString());
+        User user = User.init().username(userAccountEdit.getText().toString()).password(userPasswordEdit.getText().toString()).build();
         try {
             new LoginModel().register(this, user);
         } catch (Exception e) {
@@ -193,10 +194,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void onResponse(Call<String> call, Response<String> response) {
+    public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
         Log.i("hornhuang-test-info", "" + response.body());
-        LoginResponse loginResponse = new Gson().fromJson(response.body(), LoginResponse.class);
-        if (loginResponse.getSuccess() == false) {
+        RegisterResponse loginResponse = response.body();
+        Log.e("RegisterActivity", response.body().getMessage());
+        if (loginResponse.isSuccess() == false) {
             Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
@@ -205,7 +207,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void onFailure(Call<String> call, Throwable t) {
+    public void onFailure(Call<RegisterResponse> call, Throwable t) {
         Toast.makeText(this, "网络异常，请检查网络", Toast.LENGTH_SHORT).show();
     }
 

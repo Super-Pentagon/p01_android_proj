@@ -35,9 +35,14 @@ body{
     position:absolute;
     padding: 0;
     top: 8%;
+    overflow: auto;
     width: 100%;
-    
-    height: 90%;
+    /* min-height: max-content; */
+    min-width: max-content;
+
+    min-width:-webkit-max-content;
+    /* display: table-row; */
+    height: 100%;
     
     background-color:rgb(235, 230, 230);
     
@@ -45,10 +50,11 @@ body{
 .orders{
     position:relative;
     box-sizing: border-box;
+    /* font-size: 0.7em; */
     width: 100%;
     margin-bottom: 5%;
     margin-top: 5%;
-    height: 18%;
+    height: 19%;
     background-color: white;
     border: 10px solid white;
     border-radius: 20px;
@@ -61,14 +67,15 @@ body{
     width:100px;
     height: 100px;
     box-sizing:border-box;
+    border-radius: 15px;
     /* top: 50%; */
 }
 .ordersTitle{
     position: absolute;
     margin: 0;
-    left: 27%;
-    width: 200px;
-    height: 100px;
+    left: 30%;
+    width: 6em;
+    height: 6.5em;
     box-sizing:border-box;
 
     /* background-color: lightblue; */
@@ -76,7 +83,10 @@ body{
 .productName{
     position: absolute;
     display: block;
-    width: 10em;
+    width: 6em;
+    height: 4em;
+    overflow: auto;
+    
     top: 0;
     margin: 0;
    
@@ -121,7 +131,7 @@ body{
     bottom: 0;
     margin: 0;
     margin-top: 5%;
-    width:9em;
+    width:8em;
     
    right: 0;
     padding: 0.6em;

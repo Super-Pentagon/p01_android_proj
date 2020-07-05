@@ -33,12 +33,13 @@ import com.pentagon.p01_android_proj.login.LoginResponse;
 import com.pentagon.p01_android_proj.login.forget.ForgetPassActivity;
 import com.pentagon.p01_android_proj.login.register.RegisterActivity;
 import com.pentagon.p01_android_proj.model.User;
+import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Callback<String> {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Callback<LoginResponse> {
 
     private LinearLayout editLayout;
     private Toolbar toolbar;
@@ -120,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void loginEvent(View view) {
-        if (userAccountEdit.getText().toString() == null || userAccountEdit.getText().toString().equals("")) {
+        if (userAccountEdit.getText().toString().equals("")) {
             wrongTipsTextView.setText("账号不能为空");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
@@ -129,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editLayout.setEnabled(false);
             return;
         }
-        if (userPasswordEdit.getText().toString() == null || userPasswordEdit.getText().toString().equals("")) {
+        if (userPasswordEdit.getText().toString().equals("")) {
             wrongTipsTextView.setText("密码不能为空");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
@@ -138,7 +139,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editLayout.setEnabled(false);
             return;
         }
-        User user = new User(userAccountEdit.getText().toString(), userPasswordEdit.getText().toString());
+        User user = User.init().username(userAccountEdit.getText().toString()).password(userPasswordEdit.getText().toString()).build();
+
         try {
             new LoginModel().login(this, user);
         } catch (Exception e) {
@@ -180,19 +182,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onResponse(Call<String> call, Response<String> response) {
-        Log.i("hornhuang-test-info", "" + response.body());
-        LoginResponse loginResponse = new Gson().fromJson(response.body(), LoginResponse.class);
-        if (loginResponse.getSuccess() == false) {
-            Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
-        } else {
+    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+        Log.i("hornhuang-test-info", "" + response.body().toString());
+        LoginResponse loginResponse = response.body();
+        if (loginResponse.isSuccess()) {
+            UserPreferenceUtil.setUserId(this, loginResponse.getData().getBuyer().getBid());
             Toast.makeText(this, "登陆成功", Toast.LENGTH_SHORT).show();
             finish();
+        } else {
+            Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void onFailure(Call<String> call, Throwable t) {
+    public void onFailure(Call<LoginResponse> call, Throwable t) {
         Log.e("LoginActivity.login",t.toString());
         Toast.makeText(this, "请检查网络", Toast.LENGTH_SHORT).show();
     }

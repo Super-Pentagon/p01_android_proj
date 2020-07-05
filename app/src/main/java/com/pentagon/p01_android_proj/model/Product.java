@@ -49,6 +49,38 @@ public class Product implements Serializable {
         return monthlySales;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public void setMonthlySales(int monthlySales) {
+        this.monthlySales = monthlySales;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

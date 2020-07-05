@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改商品</title>
+    <style>
+        body{
+            background-color: aqua;
+        }
+        .backG{
+            position: relative;
+            top: 20%;
+            width: 800px;
+            height: 800px;
+            margin: 0 auto;
+            padding-top: 50px;
+            -moz-box-shadow:1px 1px 8px #616161;
+    -webkit-box-shadow:1px 1px 8px #616161;
+    box-shadow:1px 1px 8px #616161;
+
+            
+        }
+        .backG div{
+            text-align: center;
+            width: 800px;
+            margin-bottom: 50px;
+            
+        }
+        .backG div span{
+            display: inline-block;
+            width: 100px;
+        }
+        .backG div input{
+            padding: 0.5em;
+            font-size: 1em;
+            width: 15em;
+            height: 2em;
+            border-radius: 1.5em;
+            border: 1px solid #A1A1A1;
+            -moz-box-shadow:1px 1px 8px #616161;
+            -webkit-box-shadow:1px 1px 8px #616161;
+            box-shadow:1px 1px 8px #616161;
+        }
+        a.animBtn:link, a.animBtn:visited {
+            position: relative;
+            display: block;
+            left: 50px;
+            width: 180px;
+            margin: 30px auto 0;
+            padding: 14px 15px;
+            border: 2px solid #fff;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            overflow: hidden;
+            letter-spacing: .08em;
+            /*text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);*/
+            text-shadow:0 1px 1px rgba(0,0,0,0.2);
+            -webkit-transition: all .3s ease;
+            -moz-transition: all .3s ease;
+            -o-transition: all .3s ease;
+            transition: all .3s ease;
+        }
+        a.animBtn:link:after, a.animBtn:visited:after {
+            content: "";
+            position: absolute;
+            background: none repeat scroll 0 0 #fff;
+            height: 0%;
+            left: 50%;
+            top: 50%;
+            width: 100%;
+            z-index: -1;
+            -webkit-transition: all .3s ease 0s;
+            -moz-transition: all .3s ease 0s;
+            -o-transition: all .3s ease 0s;
+            transition: all .3s ease 0s;
+        }
+        a.animBtn:link:hover, a.animBtn:visited:hover {
+            color: #333;
+            text-shadow: none;
+        }
+        a.animBtn:link:hover:after, a.animBtn:visited:hover:after {
+            height: 420%;
+        }
+
+        a.animBtn.themeD:after {
+            width: 0%;
+            border-radius: 50%;
+            opacity: .5;
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+        }
+        a.animBtn.themeD:hover:after {
+            height: 450%;
+            width: 110%;
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+   
+
+<body>
+    <div id = "backG" class="backG">
+       
+        <div><span>商品I D</span><input type="text" v-model = "pid"></div>
+        <div v-if= "!flag"><a href="#" id="query" class="animBtn themeD">查询</a></div>
+        <div v-if = "flag"><span>商品描述</span><input type="text" v-model = "des"></div>
+        <div  v-if = "flag"><span>商品名称</span><input type="text" v-model = "pname"></div>
+        <div  v-if = "flag"><span>商品价格</span><input type="text" v-model = "price"></div>
+        <div  v-if = "flag"><span>图片地址</span><input type="text" v-model = "purl"></div>
+        <div  v-if = "flag"><span>卖家I D</span><input type="text" v-model = "sid"></div>
+        <div v-show = "flag"><a href="#" id="submit" class="animBtn themeD">修改</a>
+            <a href="#" id="del" class="animBtn themeD">删除</a></div>
+        
+   </div>
+   <script src="vue.js"></script>
+   <script>
+       var vm = new Vue({
+           el:'#backG',
+           data:{
+                des:"",
+                pid:"",
+                pname:"",
+                price:"",
+                purl:"",
+                sid:"",
+                flag:false,
+           },
+       });
+
+       var query = document.getElementById('query');
+       var submit = document.getElementById('submit');
+       var del = document.getElementById('del');
+       query.onclick = function(){
+          
+           var myget = new myGet();
+           var product = myget.XMLHtttpGet("http://free.shenzhuo.vip:17838/userservice/product");
+           
+           console.log(0);
+           
+       }
+       var submitObj = new Object();
+       submit.onclick = function(){
+           console.log(778);
+           
+           var myJSON = obj(submitObj);
+           var mypost = new myPost();
+           mypost.XMLHtttpPost(myJSON,"http://free.shenzhuo.vip:17838/userservice/product/updateProduct")
+           
+       }
+       del.onclick = function(){
+           console.log("del");
+           var mydel = new myDel();
+           mydel.XMLHtttpDel("http://free.shenzhuo.vip:17838/userservice/product"+"/"+vm.pid);
+           
+           
+       }
+       
+        function obj(obj){
+            obj.des = vm.des;
+                obj.pid = vm.pid;
+                obj.pname = vm.pname;
+                obj.price = parseFloat(vm.price);
+                obj.purl = vm.purl;
+                obj.sid = vm.sid;
+                var json = JSON.stringify(obj);
+                return json;
+        }    
+   
+class myDel{
+    constructor(){
+        
+    }
+    XMLHtttpDel(URL){
+        var jsonObj;
+        var a;
+        var myajax=new XMLHttpRequest()
+  
+        myajax.open('DELETE',URL,true);
+     
+        // myajax.setRequestHeader('Content-Type','application/json');
+        myajax.send(null);
+        //4.接受返回的数据
+        myajax.onreadystatechange=function(){ //1、onreadystatechange属性的使用时连接函数
+            if(myajax.readyState==4){ //2、readyState是XMLHttpRequest对象的属性，所以要是对象.属性的方式访问
+                if (myajax.status==200) {
+                    // alert('成功'+myajax.responseText);
+                    var data = myajax.responseText;
+                    // alert(typeof(data))
+                    // jsonObj = eval('('+data+')');
+                    jsonObj = JSON.parse(data);
+                    if(jsonObj.success){
+                        alert("删除成功！");
+                        window.location.href = "shop.html";
+                    }else{
+                        alert("请检查商品id！");
+                    }
+                    
+                    // alert('yes');
+                    // alert(jsonObj[5].name);
+                    //3、js中+号连接字符串   4、XMLHttpRequest对象的responseText属性获取从服务器返回的数据
+                }else{ 
+                        alert('失败'+myajax.status)
+                }
+            }
+        }
+    }
+}
+class myPost{
+    constructor(){
+        
+    }
+    XMLHtttpPost(data,URL){
+        var jsonObj;
+        var a;
+        var myajax=new XMLHttpRequest()
+        //alert(myajax) //IE6及其以下版本不支持
+        //2.连接服务器
+        // open(方法，文件路径，异步传输)
+        myajax.open('POST',URL,true);
+        //3.发送请求
+        myajax.setRequestHeader('Content-Type','application/json');
+        myajax.send(data);
+        //4.接受返回的数据
+        myajax.onreadystatechange=function(){ //1、onreadystatechange属性的使用时连接函数
+            if(myajax.readyState==4){ //2、readyState是XMLHttpRequest对象的属性，所以要是对象.属性的方式访问
+                if (myajax.status==200) {
+                    // alert('成功'+myajax.responseText);
+                    var data = myajax.responseText;
+                    // alert(typeof(data))
+                    // jsonObj = eval('('+data+')');
+                    jsonObj = JSON.parse(data);
+                    if(jsonObj.success){
+                        alert("修改成功！");
+                        window.location.href = "shop.html";
+                    }else{
+                        alert("请检查商品id！");
+                    }
+                    
+                    // alert('yes');
+                    // alert(jsonObj[5].name);
+                    //3、js中+号连接字符串   4、XMLHttpRequest对象的responseText属性获取从服务器返回的数据
+                }else{ 
+                        alert('失败'+myajax.status)
+                }
+            }
+        }
+    }
+}
+class myGet{
+    constructor(){
+        
+    }
+    XMLHtttpGet(URL){
+        var jsonObj;
+        var a;
+        var myajax=new XMLHttpRequest()
+        myajax.open('GET',URL,true);
+        myajax.send(null);
+        alert("正在加载请稍等一会。。。。。");
+        myajax.onreadystatechange=function(){ //1、onreadystatechange属性的使用时连接函数
+            if(myajax.readyState==4){ //2、readyState是XMLHttpRequest对象的属性，所以要是对象.属性的方式访问
+                if (myajax.status==200) {
+                    // alert('成功'+myajax.responseText);
+                    var data = myajax.responseText;
+                    // alert(typeof(data))
+                    jsonObj = JSON.parse(data);
+                    a= jsonObj.data.productlist;
+                    
+                    for(var i =0;i<a.length;i++){
+                        if(vm.pid == a[i].pid){
+                            vm.flag = true;
+                            vm.des = a[i].des;
+                            vm.pname = a[i].pname;
+                            vm.price = a[i].price;
+                            vm.purl = a[i].purl;
+                            vm.sid = a[i].sid;
+                        }
+                    }
+                    if(!vm.flag){
+                        alert("无此ID 请重新输入");
+                    }
+                }else{ 
+                        alert('失败'+myajax.status)
+                }
+            }
+        }
+        return jsonObj;
+    }
+}
+
+
+
+   </script>
+</body>
+</html>

@@ -26,7 +26,7 @@ class HTTP{
                     jsonObj = JSON.parse(data);
 
                     for(var i in jsonObj){
-                        createOrders( father,jsonObj[i].pictureUrl,jsonObj[i].name, jsonObj[i].price,"预计12：30送达","再来一单");
+                        createOrders( father,jsonObj[i].thumbnailUrl,jsonObj[i].pname, jsonObj[i].price,jsonOBJ[i].deliveryTime,"催促商家");
                     }
                     // alert(jsonObj[5].name);
                     //3、js中+号连接字符串   4、XMLHttpRequest对象的responseText属性获取从服务器返回的数据
@@ -77,12 +77,14 @@ function createOrders( father,picturesURL,name, priceNum,time,button){
     father.insertBefore(orders,father.firstChild);
 
 }
+
+function tiaozhuan(){
+    window.location.href = "ShoppingCartInterface.html"
+}
 var btn = document.querySelector('.btn');
 
 var father = document.querySelector('#bodys');
 var jsonOBJ = new HTTP();
 
-var jsonDataOBJ = jsonOBJ.XMLHtttp(father,'https://run.mocky.io/v3/46b38e9a-22ed-4ac7-88c8-bd6380a0b1be');
-function tiaozhuan(){
-    window.location.href = "ShoppingCartInterface.html"
-}
+var jsonDataOBJ = jsonOBJ.XMLHtttp(father,'http://free.shenzhuo.vip:17838/userservice/orders');
+

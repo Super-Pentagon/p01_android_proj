@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>管理员界面</title>
+  <style>
+      
+.Title{
+    position: absolute;
+    width: 1000px;
+    left: 50%;
+    margin-left: -500px;    
+    display: flex;
+}
+
+.Title h1{
+    position: relative;
+    top: 70px;
+    margin: 0 auto;
+}
+.father{
+    position: absolute;
+    display: flex;
+    width: 1000px;
+    height: 500px;
+    background: url("img/bg2.png") no-repeat;
+    background-size: 100% 100%;
+    top: 50%;
+    left: 50%;
+    margin-left: -500px;
+    margin-top: -250px;
+}
+
+.btn
+{
+    position: relative;
+    top: 50%;
+    right: 0;
+    left: 0;
+    display: block;
+    width: 240px;
+    height: 50px;
+    padding: 40px;
+    margin: 0 auto;
+    border: 0;
+    cursor: pointer;
+    border-radius: 2px;
+    transform: translateY(-50%);
+    box-shadow: 0 10px 20px -5px #94a6af;
+    overflow: hidden;
+}
+
+.btn:before, .btn:after
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.btn:before
+{
+    transform: scale(1);
+    background-image: url('img/bg.jpg');
+    background-size: cover;
+    transition: 0.3s ease transform;
+    z-index: 1;
+}
+
+.btn:after
+{
+    background-color: #000;
+    opacity: 0.16;
+    z-index: 2;
+}
+
+.btn div
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.btn div:before, .btn div:after
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    color: #fff;
+    font-size: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    
+    padding: 25px 0;
+    transition: 0.3s ease all;
+}
+.sh0pText:before
+{
+    content: "上架商品";
+    letter-spacing: 0;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.sh0pText:after
+{
+    content: "Click !";
+    letter-spacing: -10px;
+    transform: scale(0);
+    opacity: 0;
+}
+.orderText:before
+{
+    content: "修改商品";
+    letter-spacing: 0;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.orderText:after
+{
+    content: "Click !";
+    letter-spacing: -10px;
+    transform: scale(0);
+    opacity: 0;
+}
+
+.btn:hover:before
+{
+    transform: scale(1.1);
+}
+
+.btn:hover div:before
+{
+    letter-spacing: 3px;
+    opacity: 0;
+    transform: scale(4);
+}
+
+.btn:hover div:after
+{
+    letter-spacing: 0;
+    opacity: 1;
+    transform: scale(1);
+}
+  </style>
+</head>
+<body>
+  
+  <div class="father">
+        <button id="onProductBtn" class="btn" onclick="console.log('dddd');window.open('On.html');">
+          <div class="sh0pText"></div>
+        </button>
+      
+      
+        <button id="medProductBtn" class="btn" onclick="console.log('dddd');window.open('Med.html');">
+          <div class="orderText"></div>
+        </button>
+      
+  </div>
+<script>
+
+</script>
+</body>
+</html>
