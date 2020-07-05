@@ -142,13 +142,15 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
             editLayout.setEnabled(false);
             return;
         }
-        User user = User.init().username(UserPreferenceUtil.getUserId(this)).password(userPasswordEdit.getText().toString()).build();
-        try {
-            new LoginModel().reset(this, user);
-        } catch (Exception e) {
-            Log.e("ResetPassActivity.reset", e.getMessage());
-            e.printStackTrace();
-        }
+        // 功能设计问题，砍掉此功能
+        finish();
+//        User user = User.init().username(UserPreferenceUtil.getUserId(this)).password(userPasswordEdit.getText().toString()).build();
+//        try {
+//            new LoginModel().reset(this, user);
+//        } catch (Exception e) {
+//            Log.e("ResetPassActivity.reset", e.getMessage());
+//            e.printStackTrace();
+//        }
     }
 
     public void tipsLayoutGone(View view) {

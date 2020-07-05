@@ -23,6 +23,7 @@ import com.pentagon.p01_android_proj.product.ShoppingCartActivity;
 import com.pentagon.p01_android_proj.product.bean.ProductResponse;
 import com.pentagon.p01_android_proj.product.model.ProductModel;
 import com.pentagon.p01_android_proj.search.ProductSearchActivity;
+import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -102,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements Callback<ProductR
         navigationView.setOnNavigationItemSelectedListener(navigationItemReselectedListener);
         navigationView.setSelectedItemId(R.id.page_take_out);
         mainContainer = findViewById(R.id.main_container);
+
+        UserPreferenceUtil.logout(this);
     }
 
     @Override

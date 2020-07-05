@@ -2,6 +2,7 @@ package com.pentagon.p01_android_proj.login;
 
 import com.pentagon.p01_android_proj.login.forget.ForgetResponse;
 import com.pentagon.p01_android_proj.login.login.LoginRequest;
+import com.pentagon.p01_android_proj.login.register.RegisterRequest;
 import com.pentagon.p01_android_proj.login.register.RegisterResponse;
 import com.pentagon.p01_android_proj.model.User;
 import com.pentagon.p01_android_proj.util.http.ApiUtils;
@@ -42,9 +43,13 @@ public class LoginModel {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setUsername(user.getUsername());
+        registerRequest.setPassword(user.getPassword());
+
         // 设置参数
         Call<RegisterResponse> call = retrofit.create(UserMgrService.class)
-                .register(user.getUsername(), user.getPassword());
+                .register(registerRequest);
 
         // 回调
         call.enqueue(callback);

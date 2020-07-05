@@ -121,17 +121,18 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="15dp"
-                android:background="@android:drawable/divider_horizontal_textfield" />
+                android:background="@android:drawable/divider_horizontal_textfield"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/forget"
-                android:layout_width="0dp"
+                android:layout_width="1dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="忘记密码"
                 android:gravity="left"
                 android:paddingLeft="25dp"
-                android:onClick="jumpToForget"/>
+                android:onClick="jumpToForget"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
