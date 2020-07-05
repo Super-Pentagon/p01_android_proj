@@ -2,6 +2,7 @@ package com.pentagon.p01_android_proj.login;
 
 import com.pentagon.p01_android_proj.login.forget.ForgetResponse;
 import com.pentagon.p01_android_proj.login.login.LoginRequest;
+import com.pentagon.p01_android_proj.login.mime.GetUserResponse;
 import com.pentagon.p01_android_proj.login.register.RegisterRequest;
 import com.pentagon.p01_android_proj.login.register.RegisterResponse;
 import com.pentagon.p01_android_proj.model.User;
@@ -67,6 +68,23 @@ public class LoginModel {
         // 设置参数
         Call<ForgetResponse> call = retrofit.create(UserMgrService.class)
                 .reset(user.getUsername(), user.getPassword());
+
+        // 回调
+        call.enqueue(callback);
+
+    }
+
+    public void getUserById(String user_id, Callback<GetUserResponse> callback) {
+        // baseUrl() 设置路由地址
+        Retrofit retrofit = new Retrofit
+                .Builder()
+                .baseUrl(ApiUtils.BUYER_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // 设置参数
+        Call<GetUserResponse> call = retrofit.create(UserMgrService.class)
+                .getUserInfo(user_id);
 
         // 回调
         call.enqueue(callback);

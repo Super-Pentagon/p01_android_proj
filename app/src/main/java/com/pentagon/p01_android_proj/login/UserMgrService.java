@@ -2,6 +2,7 @@ package com.pentagon.p01_android_proj.login;
 
 import com.pentagon.p01_android_proj.login.forget.ForgetResponse;
 import com.pentagon.p01_android_proj.login.login.LoginRequest;
+import com.pentagon.p01_android_proj.login.mime.GetUserResponse;
 import com.pentagon.p01_android_proj.login.register.RegisterRequest;
 import com.pentagon.p01_android_proj.login.register.RegisterResponse;
 import com.pentagon.p01_android_proj.model.User;
@@ -37,5 +38,11 @@ public interface UserMgrService {
      */
     @GET("updatePswd/{user_id}/{user_password}")
     Call<ForgetResponse> reset(@Path("user_id") String user_id, @Path("user_password") String user_password);
+
+    /**
+     * POST 用 Query
+     */
+    @GET("getBuyerById/{user_id}")
+    Call<GetUserResponse> getUserInfo(@Path("user_id") String user_id);
 
 }
