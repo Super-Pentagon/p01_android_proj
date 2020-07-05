@@ -63,15 +63,12 @@ public class MainActivity extends AppCompatActivity implements Callback<ProductR
                                             result.success("2");
                                             List<String> msg = (List<String>) call.arguments;
                                             new ProductModel().getProductById(msg.get(msg.size()-1), MainActivity.this);
-                                            Toast.makeText(MainActivity.this, "jumpToDetail" + msg.get(msg.size()-1), Toast.LENGTH_SHORT).show();
                                             break;
                                         case "jumpToSearch":
                                             result.success("成功啦");
-                                            Toast.makeText(MainActivity.this, "jumpToSearch", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent( MainActivity.this, ProductSearchActivity.class));
+                                            startActivity(new Intent(  MainActivity.this, ProductSearchActivity.class));
                                             break;
                                         default:
-                                            Toast.makeText(MainActivity.this, "未匹配到对应的方法", Toast.LENGTH_SHORT).show();
                                             result.error("404", "未匹配到对应的方法"+call.method, null);
                                     }
                                 }
@@ -110,14 +107,12 @@ public class MainActivity extends AppCompatActivity implements Callback<ProductR
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, new Gson().toJson(ShoppingCart.getInstance().getOrderItems()), Toast.LENGTH_SHORT).show();
         Log.d("MainActivity", new Gson().toJson(ShoppingCart.getInstance().getOrderItems()));
     }
 
     @Override
     public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
         ProductResponse productResponse = response.body();
-        Toast.makeText(this, productResponse.toString(), Toast.LENGTH_LONG).show();
         Product product = new Product();
         product.setPrice(BigDecimal.valueOf(productResponse.getData().getProduct().getPrice()));
         product.setId(productResponse.getData().getProduct().getPid());
@@ -133,6 +128,5 @@ public class MainActivity extends AppCompatActivity implements Callback<ProductR
     @Override
     public void onFailure(Call<ProductResponse> call, Throwable t) {
         Log.e("MainActivity---》", t.getMessage());
-        Toast.makeText(this, "onFailure", Toast.LENGTH_LONG).show();
     }
 }
