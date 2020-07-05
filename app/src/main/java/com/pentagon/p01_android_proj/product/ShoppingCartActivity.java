@@ -26,9 +26,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            double number = Math.random();
-            webview.loadUrl("javascript:javaCallJs('" + "[{\"orderId\":\"a9c8d760-6036-48a8-ab22-f7e86ff89937\",\"productId\":\"[goods_id, 12345678900]\",\"quantity\":2},{\"orderId\":\"a9cf621f-f892-4d4c-b98f-1017cbbc8654\",\"productId\":\"[goods_id, 1278246495526612993]\",\"quantity\":1}]" + "')");
-
+            webview.loadUrl("javascript:javaCallJs('" + new Gson().toJson(ShoppingCart.getInstance().getOrderItems()) + "')");
         }
     };
 
