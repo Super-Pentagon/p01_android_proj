@@ -100,8 +100,6 @@ public class MainActivity extends AppCompatActivity implements Callback<ProductR
         navigationView.setOnNavigationItemSelectedListener(navigationItemReselectedListener);
         navigationView.setSelectedItemId(R.id.page_take_out);
         mainContainer = findViewById(R.id.main_container);
-
-        UserPreferenceUtil.logout(this);
     }
 
     @Override
