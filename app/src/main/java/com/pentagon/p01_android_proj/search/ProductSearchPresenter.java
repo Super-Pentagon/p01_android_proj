@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.pentagon.p01_android_proj.model.Product;
+import com.pentagon.p01_android_proj.model.ProductWrapper;
 import com.pentagon.p01_android_proj.service.ProductSearchService;
 import com.pentagon.p01_android_proj.service.ServiceGenerator;
 import com.pentagon.p01_android_proj.util.LogHelper;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -64,7 +66,7 @@ class ProductSearchPresenter implements IProductSearchPresenter {
                 .getSearchedProducts()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Product>>() {
+                .subscribe(new Observer<ProductWrapper>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         LogHelper.log("onSubscribe");
@@ -72,9 +74,11 @@ class ProductSearchPresenter implements IProductSearchPresenter {
                     }
 
                     @Override
-                    public void onNext(@NonNull List<Product> products) {
+                    public void onNext(@NonNull ProductWrapper productWrappers) {
                         LogHelper.log("onNext");
-                        mProductSearchView.onSearchCompleted(products);
+                        mProductSearchView.onSearchCompleted(
+                                productWrappers.getData().getProductList()
+                        );
                     }
 
                     @Override
