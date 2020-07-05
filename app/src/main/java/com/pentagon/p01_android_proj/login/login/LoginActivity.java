@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void loginEvent(View view) {
-        if (userAccountEdit.getText().toString() == null || userAccountEdit.getText().toString().equals("")) {
+        if (userAccountEdit.getText().toString().equals("")) {
             wrongTipsTextView.setText("账号不能为空");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editLayout.setEnabled(false);
             return;
         }
-        if (userPasswordEdit.getText().toString() == null || userPasswordEdit.getText().toString().equals("")) {
+        if (userPasswordEdit.getText().toString().equals("")) {
             wrongTipsTextView.setText("密码不能为空");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
@@ -139,7 +139,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editLayout.setEnabled(false);
             return;
         }
-        User user = new User(userAccountEdit.getText().toString(), userPasswordEdit.getText().toString());
+        User user = User.init().username(userAccountEdit.getText().toString()).password(userPasswordEdit.getText().toString()).build();
+
         try {
             new LoginModel().login(this, user);
         } catch (Exception e) {
@@ -182,14 +183,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-        Log.i("hornhuang-test-info", "" + response.body());
+        Log.i("hornhuang-test-info", "" + response.body().toString());
         LoginResponse loginResponse = response.body();
-        if (loginResponse.isSuccess() == false) {
-            Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
-        } else {
+        if (loginResponse.isSuccess()) {
             UserPreferenceUtil.setUserId(this, loginResponse.getData().getBuyer().getBid());
             Toast.makeText(this, "登陆成功", Toast.LENGTH_SHORT).show();
             finish();
+        } else {
+            Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
         }
     }
 
