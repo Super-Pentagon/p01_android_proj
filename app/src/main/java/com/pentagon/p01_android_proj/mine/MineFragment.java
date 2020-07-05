@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pentagon.p01_android_proj.R;
+import com.pentagon.p01_android_proj.login.login.LoginActivity;
+import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,4 +65,11 @@ public class MineFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_mine, container, false);
     }
+
+    public void checkLog(View view) {
+        if (!UserPreferenceUtil.isUserLogin(getActivity())) {
+            LoginActivity.actionStart(getActivity());
+        }
+    }
+
 }
