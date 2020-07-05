@@ -159,7 +159,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             editLayout.setEnabled(false);
             return;
         }
-        User user = new User(userAccountEdit.getText().toString(), userPasswordEdit.getText().toString());
+        User user = User.init().username(userAccountEdit.getText().toString()).password(userPasswordEdit.getText().toString()).build();
         try {
             new LoginModel().register(this, user);
         } catch (Exception e) {
