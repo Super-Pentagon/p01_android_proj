@@ -146,6 +146,37 @@ public class LoginResponse {
             public void setState(int state) {
                 this.state = state;
             }
+
+            @Override
+            public String toString() {
+                return "BuyerBean{" +
+                        "bid='" + bid + '\'' +
+                        ", username='" + username + '\'' +
+                        ", password='" + password + '\'' +
+                        ", tel='" + tel + '\'' +
+                        ", address='" + address + '\'' +
+                        ", avatar='" + avatar + '\'' +
+                        ", name='" + name + '\'' +
+                        ", state=" + state +
+                        '}';
+            }
         }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "buyer=" + buyer +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "LoginResponse{" +
+                "success=" + success +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

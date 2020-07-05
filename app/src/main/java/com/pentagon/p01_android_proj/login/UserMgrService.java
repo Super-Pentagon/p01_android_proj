@@ -1,10 +1,12 @@
 package com.pentagon.p01_android_proj.login;
 
 import com.pentagon.p01_android_proj.login.forget.ForgetResponse;
+import com.pentagon.p01_android_proj.login.login.LoginRequest;
 import com.pentagon.p01_android_proj.login.register.RegisterResponse;
 import com.pentagon.p01_android_proj.model.User;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -21,13 +23,13 @@ public interface UserMgrService {
      * POST 用 Query
      */
     @POST("login")
-    Call<LoginResponse> login(@Field("username") String username, @Field("password") String password);
+    Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
     /**
      * POST 用 Query
      */
     @POST("register")
-    Call<RegisterResponse> register(@Field("username") String username, @Field("password") String password);
+    Call<RegisterResponse> register(@Query("username") String username, @Query("password") String password);
 
     /**
      * POST 用 Query
