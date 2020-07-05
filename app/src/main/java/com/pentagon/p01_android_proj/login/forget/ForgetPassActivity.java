@@ -26,6 +26,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pentagon.p01_android_proj.R;
+import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 
 public class ForgetPassActivity extends AppCompatActivity implements View.OnClickListener  {
 
@@ -109,7 +110,7 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void forgetEvent(View view) {
-        if (userAccountEdit.getText().toString() == null || userAccountEdit.getText().toString().equals("")) {
+        if (userAccountEdit.getText().toString().equals("")) {
             wrongTipsTextView.setText("账号不能为空");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
@@ -118,8 +119,8 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
             editLayout.setEnabled(false);
             return;
         }
-        if (verificationCodeEdit.getText().toString() == null || verificationCodeEdit.getText().toString().equals("")) {
-            wrongTipsTextView.setText("密码不能为空");
+        if (verificationCodeEdit.getText().toString().equals("")) {
+            wrongTipsTextView.setText("验证文字不能为空");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
             userAccountEdit.setEnabled(false);
@@ -128,7 +129,7 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
             return;
         }
         if (!verificationCodeEdit.getText().toString().equals("通源")) {
-            wrongTipsTextView.setText("两次填写密码不一致");
+            wrongTipsTextView.setText("验证文字不匹配");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
             userAccountEdit.setEnabled(false);
@@ -136,7 +137,7 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
             editLayout.setEnabled(false);
             return;
         }
-        ResetPassActivity.actionStart(this, userAccountEdit.getText().toString());
+        ResetPassActivity.actionStart(this, UserPreferenceUtil.getUserId(this));
         finish();
     }
 

@@ -53,4 +53,14 @@ public class ForgetResponse {
 
     public static class DataBean {
     }
+
+    @Override
+    public String toString() {
+        return "ForgetResponse{" +
+                "success=" + success +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

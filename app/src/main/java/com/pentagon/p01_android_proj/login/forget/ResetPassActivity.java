@@ -29,6 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pentagon.p01_android_proj.R;
 import com.pentagon.p01_android_proj.login.LoginModel;
 import com.pentagon.p01_android_proj.model.User;
+import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +37,7 @@ import retrofit2.Response;
 
 public class ResetPassActivity extends AppCompatActivity implements View.OnClickListener, Callback<ForgetResponse> {
 
-    private final static String USER_PASSWORD = "user_password";
+    private final static String USER_NAME = "user_name";
 
     private LinearLayout editLayout;
     private Toolbar toolbar;
@@ -132,7 +133,7 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
             editLayout.setEnabled(false);
             return;
         }
-        if (userPasswordAgainEdit.getText().toString().equals(userPasswordEdit.getText().toString())) {
+        if (!userPasswordAgainEdit.getText().toString().equals(userPasswordEdit.getText().toString())) {
             wrongTipsTextView.setText("两次密码不一样");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
@@ -141,7 +142,7 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
             editLayout.setEnabled(false);
             return;
         }
-        User user = new User(getIntent().getStringExtra(USER_PASSWORD), userPasswordAgainEdit.getText().toString());
+        User user = User.init().username(UserPreferenceUtil.getUserId(this)).password(userPasswordEdit.getText().toString()).build();
         try {
             new LoginModel().reset(this, user);
         } catch (Exception e) {
@@ -176,13 +177,13 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onResponse(Call<ForgetResponse> call, Response<ForgetResponse> response) {
-        Log.i("hornhuang-test-info", "" + response.body());
-        ForgetResponse loginResponse = response.body();
-        if (loginResponse.isSuccess() == false) {
-            Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
-        } else {
+        Log.i("hornhuang-test-info", "" + response.body().toString());
+        ForgetResponse forgetResponse = response.body();
+        if (forgetResponse.isSuccess()) {
             Toast.makeText(this, "密码重置成功", Toast.LENGTH_SHORT).show();
             finish();
+        } else {
+            Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -194,7 +195,7 @@ public class ResetPassActivity extends AppCompatActivity implements View.OnClick
 
     public static void actionStart(Activity activity, String user_password) {
         Intent intent = new Intent(activity, ResetPassActivity.class);
-        intent.putExtra(USER_PASSWORD, user_password);
+        intent.putExtra(USER_NAME, user_password);
         activity.startActivity(intent);
     }
 
