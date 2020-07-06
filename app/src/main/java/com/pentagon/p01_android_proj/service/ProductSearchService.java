@@ -7,11 +7,11 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface ProductSearchService {
-//    @GET("ic_product_search/{inputString}")
-    @GET("8f030a11-693b-4509-aa52-aa55bb8c03ca")
+    @GET("userservice/product/getProductByStr/{inputString}")
     Observable<ProductWrapper> getSearchedProducts(
-//            @Path("inputString") String inputString
+            @Path("inputString") String inputString
     );
 }

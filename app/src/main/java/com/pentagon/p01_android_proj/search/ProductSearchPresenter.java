@@ -62,8 +62,7 @@ class ProductSearchPresenter implements IProductSearchPresenter {
     public void searchProducts(String inputString) {
         unsubscribeLast();
         ServiceGenerator.createService(ProductSearchService.class)
-//                .getSearchedProducts(inputString)
-                .getSearchedProducts()
+                .getSearchedProducts(inputString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ProductWrapper>() {
