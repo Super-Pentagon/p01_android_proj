@@ -140,7 +140,7 @@
             style="@style/SpinKitView.Wave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="100dp"
             android:visibility="invisible"
             app:SpinKit_Color="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -153,10 +153,9 @@
             android:layout_height="wrap_content"
             android:text="没有类似的商品~"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/spinKit"
+            app:layout_constraintBottom_toTopOf="@+id/spinKit"
             app:layout_constraintEnd_toEndOf="@+id/spinKit"
-            app:layout_constraintStart_toStartOf="@+id/spinKit"
-            app:layout_constraintTop_toTopOf="@+id/spinKit" />
+            app:layout_constraintStart_toStartOf="@+id/spinKit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include

@@ -175,13 +175,22 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
 
     @Override
     public void onSearchCompleted(List<Product> products) {
-        mAdapter.setProducts(products);
-        mSalesCheckBox.setVisibility(View.VISIBLE);
-        mPriceCheckBox.setVisibility(View.VISIBLE);
-        mAdapter.notifyDataSetChanged();
+        if(products==null){
+            mSpinKitView.setVisibility(View.INVISIBLE);
+            mSalesCheckBox.setVisibility(View.INVISIBLE);
+            mPriceCheckBox.setVisibility(View.INVISIBLE);
+            mInfoText.setVisibility(View.INVISIBLE);
+            return;
+        }
         if(products.size()==0){
+            mSalesCheckBox.setVisibility(View.INVISIBLE);
+            mPriceCheckBox.setVisibility(View.INVISIBLE);
             mInfoText.setVisibility(View.VISIBLE);
         }else{
+            mAdapter.setProducts(products);
+            mSalesCheckBox.setVisibility(View.VISIBLE);
+            mPriceCheckBox.setVisibility(View.VISIBLE);
+            mAdapter.notifyDataSetChanged();
             mInfoText.setVisibility(View.INVISIBLE);
         }
         mSpinKitView.setVisibility(View.INVISIBLE);
