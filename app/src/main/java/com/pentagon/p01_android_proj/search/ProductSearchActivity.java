@@ -182,18 +182,18 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
             mInfoText.setVisibility(View.INVISIBLE);
             return;
         }
+        mAdapter.setProducts(products);
+        mAdapter.notifyDataSetChanged();
+        mSpinKitView.setVisibility(View.INVISIBLE);
         if(products.size()==0){
             mSalesCheckBox.setVisibility(View.INVISIBLE);
             mPriceCheckBox.setVisibility(View.INVISIBLE);
             mInfoText.setVisibility(View.VISIBLE);
         }else{
-            mAdapter.setProducts(products);
             mSalesCheckBox.setVisibility(View.VISIBLE);
             mPriceCheckBox.setVisibility(View.VISIBLE);
-            mAdapter.notifyDataSetChanged();
             mInfoText.setVisibility(View.INVISIBLE);
         }
-        mSpinKitView.setVisibility(View.INVISIBLE);
     }
 
     @Override
