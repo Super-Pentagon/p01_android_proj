@@ -24,10 +24,15 @@ class HTTP{
                     // alert(typeof(data))
                     // jsonObj = eval('('+data+')');
                     jsonObj = JSON.parse(data);
-
-                    for(var i in jsonObj){
-                        createOrders( father,jsonObj[i].thumbnailUrl,jsonObj[i].pname, jsonObj[i].price,jsonOBJ[i].deliveryTime,"催促商家");
-                    }
+                    let list = jsonObj.data.list;
+                    console.log(list);
+                     for(let i =0;i<list.length;i++){
+                        if(list[i].orderItemvos!=[]){
+                            for(let j =0;j<list[i].orderItemvos.length;j++){
+                              createOrders( father,list[i].orderItemvos[j].product.purl , list[i].orderItemvos[j].product.pname,list[i].orderItemvos[j].subtotal,list[i].time,"催促商家");
+                            }
+                     }
+                      }
                     // alert(jsonObj[5].name);
                     //3、js中+号连接字符串   4、XMLHttpRequest对象的responseText属性获取从服务器返回的数据
                 }else{ 
@@ -71,6 +76,7 @@ function createOrders( father,picturesURL,name, priceNum,time,button){
     var ordersBtn = document.createElement('button') 
     ordersBtn.className = "ordersBtn";
     ordersBtn.innerHTML = button;
+    ordersBtn.id = "btn";
     ordersRight.appendChild(statu);
     ordersRight.appendChild(ordersBtn);
     orders.appendChild(ordersRight);
@@ -81,10 +87,13 @@ function createOrders( father,picturesURL,name, priceNum,time,button){
 function tiaozhuan(){
     window.location.href = "ShoppingCartInterface.html"
 }
-var btn = document.querySelector('.btn');
+ 
+document.getElementById("btn").onclick = function(){window.Android.loading()}
 
 var father = document.querySelector('#bodys');
 var jsonOBJ = new HTTP();
 
-var jsonDataOBJ = jsonOBJ.XMLHtttp(father,'http://free.shenzhuo.vip:17838/userservice/orders');
 
+var jsonDataOBJ = jsonOBJ.XMLHtttp(father,'http://personal2.shenzhuo.vip:18019/userservice/orders/getOrderList/1279088273653854209');
+
+let bid = "1278278746071109633";

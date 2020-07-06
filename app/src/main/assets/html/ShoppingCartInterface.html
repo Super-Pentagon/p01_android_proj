@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=0, maximum-scale=1.0">
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=0, maximum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="format-detection" content="telephone=no, email=no,date=no,address=no">
     <link rel="stylesheet" href="../css/ShoppingCartInterfaceCSS.css">
@@ -13,97 +13,85 @@
     <title>ShoppingCart</title>
 </head>
 
-<body>
+<body onload="window.Android.loading();">
 
-    <div class="kong">
-        <div id="top">
-            <div id="backs" onclick="window.location.href='orderView.html'">
-                <img src="../img/back.png" alt="">
-                <span class="back">Back</span>
-            </div>
-            <div class="title"><span>购物车</span></div>
+<div class="kong">
+    <div id="top">
+        <div id="backs" onclick="window.location.href='orderView.html'">
+            <img src="../img/back.png" alt="">
+            <span class="back">Back</span>
         </div>
+        <div class="title"><span>购物车</span></div>
     </div>
-    <div id="input" class="input">
-        <div id="phone" class="id"> <input type="text" placeholder="  请输入手机号" oninput="value=value.replace(/[^\d]/g,'')"
-                maxlength="11"
-                onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"
-                v-model="phoneNum"></div>
-        <div id="address" class="id"><input type="text" name="" id="" placeholder="  请输入配送地址" v-model="address"></div>
+</div>
+<div id="input" class="input">
+    <div id="phone" class="id"> <input type="text" placeholder="  请输入手机号" oninput="value=value.replace(/[^\d]/g,'')"
+                                       maxlength="11"
+                                       onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"
+                                       v-model="phoneNum"></div>
+    <div id="address" class="id"><input type="text" name="" id="" placeholder="  请输入配送地址" v-model="address"></div>
+</div>
+<div id="merchandiseList" >
+    <div class="selectAndDelete">
+        <input id="checkbox" type="checkbox" v-model="this.isAllCheck" @click="change()">&nbsp;&nbsp;全选
+        <span id="del" @click="del()">删除</span>
     </div>
-    <div id="merchandiseList" >
-        <div class="selectAndDelete">
-            <input id="checkbox" type="checkbox" v-model="this.isAllCheck" @click="change()">&nbsp;&nbsp;全选
-            <span id="del" @click="del()">删除</span>
-        </div>
-        <ul>
-            <li v-for="(product,index) in productList">
-                <span><input class="shopSele" type="checkbox" v-model="product.isCheck"></span>
-                <span><img v-bind:src="product.purl"></span>
+    <ul>
+        <li v-for="(product,index) in productList">
+            <span><input class="shopSele" type="checkbox" v-model="product.isCheck"></span>
+            <span><img v-bind:src="product.purl"></span>
 
-                <span class="shopName">{{product.pname}}</span>
-                <span @click="sub(product)"><img class="minus" src="../img/minusBegin.png" alt=""></span>
-                <span class="shopNum">{{product.quantity}}</span>
-                <span @click="add(product)"><img class="add" src="../img/addBegin.png" alt=""></span>
-                <span>合计：￥</span>
-                <span class="shopPrice">{{proAllPrice(product)}}</span>
-            </li>
+            <span class="shopName">{{product.pname}}</span>
+            <span @click="sub(product)"><img class="minus" src="../img/minusBegin.png" alt=""></span>
+            <span class="shopNum">{{product.quantity}}</span>
+            <span @click="add(product)"><img class="add" src="../img/addBegin.png" alt=""></span>
+            <span>合计：￥</span>
+            <span class="shopPrice">{{proAllPrice(product)}}</span>
+        </li>
 
 
-        </ul>
-          <div id="app">
-            <p v-bind="window.Android.loading()">{{this.pro}}</p>
-        </div>
-        
-        <div id="bottom" class="bottom">
-            <span class="amount">￥ {{amount()}}</span>
-            <span class="payBtn" onclick="window.Android.loading()">支付</span>
-        </div>
+    </ul>
+<p id="app"></p>
+
+    <div id="bottom" class="bottom">
+        <span class="amount">￥ {{amount()}}</span>
+        <span class="payBtn" @click="Pay()">支付</span>
     </div>
-    <script src="../script/jQuery.js"></script>
-    <script src="../script/shoppingCartScript.js"></script>
-    <script src="../script/vue.js"></script>
-    <script type="text/javascript">
+</div>
+<script src="../script/jQuery.js"></script>
+
+<script src="../script/vue.js"></script>
+
+<script type="text/javascript">
 
 
-        let app=new Vue({
-            el:"#app",
-            data:{
-                pro:"",
-            },
-            methods:{
-                JavaCallJs(value){
-                    this.pro = value;
-                }
-            }
 
-        });
 
-      window.onload=function(){
+  function javaCallJs(value) {
 
-        var proVm = new Vue({
+
+            jsonObj(value);
+  }
+
+    function jsonObj(value){
+        let listObj = new Object();
+        let jsonString ="";
+        jsonString = value;
+        listObj = JSON.parse(jsonString);
+
+         let proList = "";
+    var proVm = new Vue({
             el: "#merchandiseList",
             data: {
                 isAllCheck: false,
                 mony: 0,
-                productList: [{
-                        purl: "../img/1.jpg",
-                        pname: "1",
-                        quantity: 5,
-                        price: 15,
-                        proPrices: 0,
-                        isCheck: false,
-                    },
-                
+                productList: [
+
 
                 ],
             },
             methods: {
-                add(){
-                    for(let i =0;i<shopCarList.length;i++){
-                        this.productList.push(shopCarList[i]);
-                    }     
-                },
+
                 sub(product) {
                     if (product.quantity > 1) {
                         product.quantity--;
@@ -142,12 +130,92 @@
                 },
                 Pay() {
                     var phoneReg = /^1[3-9][0-9]{9}$/;
-                    if (!phoneReg.test(inputVm.phoneNum)) {
-                        window.confirm('手机号有误，请重新输入！');
+                   if (!phoneReg.test(inputVm.phoneNum) || inputVm.address==""||inputVm.phoneNum=="") {
+                         window.Android.registration1();
+                        console.log("手机号或地址不合法")
+                    }  else {
 
-                    } else {
+                        window.Android.registration2();
+                        let list = [];
+                        let obj = new Object();
+                        let t = 0;
+                        let totals = 0;
+                        let oid = [];
+                        for(let i =0;i<this.productList.length;i++){
+                            if(this.productList[i].isCheck){
 
-                        
+                                let obj = new Object();
+                                obj["count"] = this.productList[i].quantity;
+                                obj["pid"] = this.productList[i].pid;
+                                obj["itemid"] = this.productList[i].orderId;
+                                obj["subtotal"] = this.productList[i].proPrices;
+                                list[t] = obj;
+                                this.productList.splice()
+                            }
+                            t++;
+                        }
+                        for(let i =0;i<this.productList.length;i++){
+                            if(this.productList[i].isCheck){
+                            this.del(i);
+                            }
+                        }
+
+                        for(let i =0;i<list.length;i++){
+                            totals += list[i].subtotal;
+                            oid[i] = list[i].itemid;
+
+
+                        }
+                        obj["orderitemlist"] = list;
+                        obj["tel"] = inputVm.phoneNum;
+                        obj["address"] = inputVm.address;
+                        obj["total"] = totals;
+                        // console(obj)
+                        let json = JSON.stringify(obj);
+                        console.log(json);
+                        posts("http://personal2.shenzhuo.vip:18019/userservice/orders/addOrder",json);
+
+
+
+                        function posts(url,json){
+                            let myAjax = new XMLHttpRequest();
+                            myAjax.open("POST", url, true);
+                            myAjax.setRequestHeader('Content-Type', 'application/json');
+                            // myAjax.setRequestHeader('Access-Control-Allow-Origin','*');
+
+                            console.log();
+
+                            myAjax.send(json);
+                            myAjax.onreadystatechange = function () {
+                                if (myAjax.readyState == 4) {
+                                    if (myAjax.status == 200) {
+                                    console.log("成功post");
+
+                                    } else {
+                                        alert('失败post' + myAjax.status)
+                                    }
+                                }
+                            };
+                        }
+                        function gets(url) {
+                            let myAjax = new XMLHttpRequest();
+                            myAjax.open("GET", url, true);
+                            myAjax.setRequestHeader('Content-Type', 'application/json');
+                            myAjax.send(null);
+                            let jsonObj = new Object();
+                            myAjax.onreadystatechange = function () {
+                                if (myAjax.readyState == 4) {
+                                    if (myAjax.status == 200) {
+                                        jsonObj = JSON.parse(myAjax.responseText);
+                                        console.log(jsonObj);
+                                    } else {
+                                        alert('失败' + myAjax.status)
+                                    }
+                                }
+                            };
+                        }
+                        // let ajax = new XMLHttpRequest();
+
                     }
                 }
             }
@@ -160,81 +228,47 @@
             },
             methods: {}
         });
-        let listObj = new Object();
-        let jsonString = "";
-        let  shopCarList = [];
-        // objProductList();
-        // getProductMsg();
+
+ let shopCarList = [];
         vueProductList();
 
-        // function objProductList() {
-        //     let proList = "";
-        //     // getJSONProductList(proList);
-        //     listObj = JSON.parse(jsonString);
-        //     for (let i = 0; i < listObj.length; i++) {
-        //         listObj[i].productId = listObj[i].productId.substr(0,listObj[i].productId.length-1);
-        //         listObj[i].productId = listObj[i].productId.substr(1,listObj[i].productId.length-1);
-        //         listObj[i].productId = listObj[i].productId.split(",");
-        //     }
-        //     // console.log(listObj);
-            
-        // }
-        var asd = "";
-        var span =document.querySelector(".appp");
-        
-        function getJSONProductList(value) {
-            span.innerHTML = value
+
+        function vueProductList() {
+            for (j in listObj) {
+                HttpMsg("GET", "http://personal2.shenzhuo.vip:18019/userservice/product/getProductById/" + listObj[j].productId, null, j);
+            }
 
         }
-        // function getJSONProductList(proList) {
-        //     proList =
-        //         ' [{"orderId":"a9c8d760-6036-48a8-ab22-f7e86ff89937","productId":"[goods_id, 1]","quantity":2},{"orderId":"a9cf621f-f892-4d4c-b98f-1017cbbc8654","productId":"[goods_id, 2]","quantity":1}]';
-        //     jsonString = proList;
-        // }
 
-         function vueProductList() {
-            let pid = [];
-            for (let i = 0; i < listObj.length; i++) {
-                pid[i] = listObj[i].productId[1].toString();
-                pid[i]=pid[i].replace(/\s+/g,"");
-                pid[i].index = i;
-                
-            }
-            for(var j =0;j<pid.length;j++){
-                // console.log(pid[j]);
-                 HttpMsg("GET", "http://free.shenzhuo.vip:17838/userservice/product/getProductById/"+pid[j], null,j );
-            
-            }
-            proVm.productList = shopCarList;
-        //    console.log(proVm);
-           
-        }
-        
-        function HttpMsg(methods, URL, sends,j) {
-                let myAjax = new XMLHttpRequest();
-                myAjax.open(methods, URL, true);
-                myAjax.send(sends);
-                myAjax.onreadystatechange = function () {
-                    let jsonObj = new Object();
-                    // console.log(j);
-                  
-                    
-                    if (myAjax.readyState == 4) { 
-                        if (myAjax.status == 200) {
-                            var data = myAjax.responseText;
-                            jsonObj = JSON.parse(data);
-                            shopCarList[j] = jsonObj.data.product;
-                            shopCarList[j]["isCheck"] = false;
-                            shopCarList[j]["quantity"] = listObj[j].quantity;
-                            shopCarList[j]["orderId"] = listObj[j].orderId;
-                        } else {
-                            alert('失败' + myAjax.status)
-                        }
+
+
+        function HttpMsg(methods, URL, sends, j) {
+            let myAjax = new XMLHttpRequest();
+            myAjax.open(methods, URL, true);
+            myAjax.setRequestHeader('Content-Type', 'application/json');
+            myAjax.send(sends);
+            myAjax.onreadystatechange = function () {
+                let jsonObj = new Object();
+                if (myAjax.readyState == 4) {
+                    if (myAjax.status == 200) {
+                        var data = myAjax.responseText;
+                        jsonObj = JSON.parse(data);
+                        shopCarList[j] = jsonObj.data.product;
+                        shopCarList[j]["isCheck"] = false;
+                        shopCarList[j]["quantity"] = listObj[j].quantity;
+                        shopCarList[j]["orderId"] = listObj[j].orderId;
+
+                        proVm.productList = shopCarList;
+                    } else {
+                        alert('失败' + myAjax.status)
                     }
-                };
-            }
-        };
-            // proVm.productList[0].proName = listObj[0].orderId;
+                }
+            };
+        }
+
+
+    }
+
     </script>
 </body>
 

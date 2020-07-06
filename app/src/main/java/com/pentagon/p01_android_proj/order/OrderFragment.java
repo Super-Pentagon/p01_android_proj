@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,20 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.pentagon.p01_android_proj.R;
+import com.pentagon.p01_android_proj.model.ShoppingCart;
+import com.pentagon.p01_android_proj.product.ShoppingCartActivity;
 
 public class OrderFragment extends Fragment {
 
     private WebView webview;
-
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            webview.loadUrl("javascript:javaCallJs('" + new Gson().toJson(ShoppingCart.getInstance().getOrderItems()) + "')");
+        }
+    };
     public OrderFragment() {
         // Required empty public constructor
     }
@@ -93,17 +103,19 @@ public class OrderFragment extends Fragment {
     class AndroidAndJSInterface {
         @JavascriptInterface
         public void registration1() {
-            Toast.makeText(getActivity(), "registration1", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "手机号或地址输入有误！", Toast.LENGTH_SHORT).show();
         }
 
         @JavascriptInterface
         public void loading() {
             Toast.makeText(getActivity(), "loading", Toast.LENGTH_SHORT).show();
+            handler.sendEmptyMessage(0x0);
         }
 
         @JavascriptInterface
         public void registration2() {
-            Toast.makeText(getActivity(), "registration2", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "支付成功！", Toast.LENGTH_SHORT).show();
+            ShoppingCart.getInstance().getOrderItems().clear();
         }
 
     }

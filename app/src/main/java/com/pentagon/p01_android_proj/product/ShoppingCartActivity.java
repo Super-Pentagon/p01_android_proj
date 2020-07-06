@@ -26,9 +26,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            webview.loadUrl("javascript:javaCallJs('" +
-                    new Gson().toJson(ShoppingCart.getInstance().getOrderItems()) +
-                    "')");
+            webview.loadUrl("javascript:javaCallJs('" + new Gson().toJson(ShoppingCart.getInstance().getOrderItems()) + "')");
         }
     };
 
@@ -87,7 +85,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         @JavascriptInterface
         public void registration1() {
-            Toast.makeText(ShoppingCartActivity.this, "registration1", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShoppingCartActivity.this, "手机号或地址输入有误！", Toast.LENGTH_SHORT).show();
         }
 
         @JavascriptInterface
@@ -98,7 +96,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         @JavascriptInterface
         public void registration2() {
-            Toast.makeText(ShoppingCartActivity.this, "registration2", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShoppingCartActivity.this, "支付成功！", Toast.LENGTH_SHORT).show();
+            ShoppingCart.getInstance().getOrderItems().clear();
         }
 
     }
