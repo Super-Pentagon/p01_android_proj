@@ -2,6 +2,8 @@ package com.pentagon.p01_android_proj.search;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.pentagon.p01_android_proj.model.Product;
 import com.pentagon.p01_android_proj.model.ProductWrapper;
@@ -88,7 +90,11 @@ class ProductSearchPresenter implements IProductSearchPresenter {
                         if(e instanceof SocketTimeoutException){
                             mProductSearchView.onSearchError("似乎当前网络状况不佳~");
                         }else if(e instanceof UnknownHostException){
-                            mProductSearchView.onSearchError("请检查网络是否开启~");
+                            if(!isNetworkConnected((Context) mProductSearchView)) {
+                                mProductSearchView.onSearchError("请检查网络是否开启~");
+                            }else{
+                                mProductSearchView.onSearchError("服务器暂时维护中~");
+                            }
                         }else {
                             mProductSearchView.onSearchError("发生了一些错误~");
                         }
@@ -199,5 +205,17 @@ class ProductSearchPresenter implements IProductSearchPresenter {
             LogHelper.log("unsubscribeLast");
             mDisposable.dispose();
         }
+    }
+
+    public boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
     }
 }
