@@ -13,7 +13,7 @@ ext {
     android = [
 
             // 最小的 SDK 版本
-            MIN_SDK_VERSION : 26,
+            MIN_SDK_VERSION : 24,
             // 当前 SDK 版本
             TAR_SDK_VERSION : 29,
             // 版本号
