@@ -9,5 +9,6 @@
         <domain includeSubdomains="true">free.shenzhuo.vip</domain>
         <domain includeSubdomains="true">img06.fn-mart.com</domain>
         <domain includeSubdomains="true">bpic.588ku.com</domain>
+        <domain includeSubdomains="true">personal2.shenzhuo.vip</domain>
     </domain-config>
 </network-security-config>
