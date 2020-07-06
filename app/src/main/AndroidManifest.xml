@@ -18,8 +18,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".product.ShoppingCartActivity"></activity>
         <activity android:name=".detail.ProductDetailActivity" />
-        <activity android:name=".login.forget.ResetPassActivity" />
-        <activity android:name=".login.forget.ForgetPassActivity" />
+        <activity android:name=".login.forget.ResetPasswordActivity" />
+        <activity android:name=".login.forget.ForgetPasswordActivity" />
         <activity android:name=".login.register.RegisterActivity" />
         <activity android:name=".login.login.LoginActivity" />
         <activity android:name=".MainActivity">

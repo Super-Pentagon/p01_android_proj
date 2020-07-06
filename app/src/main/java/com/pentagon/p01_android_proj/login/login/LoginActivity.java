@@ -26,11 +26,10 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
 import com.pentagon.p01_android_proj.R;
 import com.pentagon.p01_android_proj.login.LoginModel;
 import com.pentagon.p01_android_proj.login.LoginResponse;
-import com.pentagon.p01_android_proj.login.forget.ForgetPassActivity;
+import com.pentagon.p01_android_proj.login.forget.ForgetPasswordActivity;
 import com.pentagon.p01_android_proj.login.register.RegisterActivity;
 import com.pentagon.p01_android_proj.model.User;
 import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
@@ -154,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void jumpToForget(View view) {
-        ForgetPassActivity.actionStart(this);
+        ForgetPasswordActivity.actionStart(this);
     }
 
     public void tipsLayoutGone(View view) {
