@@ -9,6 +9,8 @@ import com.pentagon.p01_android_proj.service.ProductSearchService;
 import com.pentagon.p01_android_proj.service.ServiceGenerator;
 import com.pentagon.p01_android_proj.util.LogHelper;
 
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -83,6 +85,13 @@ class ProductSearchPresenter implements IProductSearchPresenter {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         LogHelper.log("onError:" + e);
+                        if(e instanceof SocketTimeoutException){
+                            mProductSearchView.onSearchError("似乎当前网络状况不佳~");
+                        }else if(e instanceof UnknownHostException){
+                            mProductSearchView.onSearchError("请检查网络是否开启~");
+                        }else {
+                            mProductSearchView.onSearchError("发生了一些错误~");
+                        }
                     }
 
                     @Override

@@ -12,4 +12,6 @@ interface IProductSearchView {
     void onInitRecordsCompleted(String[] recordStrings);
 
     void onSortCompleted();
+
+    void onSearchError(String errorInfo);
 }

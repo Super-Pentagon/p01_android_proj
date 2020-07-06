@@ -29,6 +29,7 @@ import com.pentagon.p01_android_proj.model.ShoppingCart;
 import com.pentagon.p01_android_proj.util.LogHelper;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductSearchActivity extends AppCompatActivity implements IProductSearchView
@@ -170,6 +171,7 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
         if (string.equals("")) return;
         mQuickSearchLayout.setVisibility(View.INVISIBLE);
         mSpinKitView.setVisibility(View.VISIBLE);
+        mInfoText.setVisibility(View.INVISIBLE);
         mProductSearchPresenter.searchProducts(string);
         mProductSearchPresenter.saveSearchRecord(string);
     }
@@ -190,6 +192,7 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
             mSalesCheckBox.setVisibility(View.INVISIBLE);
             mPriceCheckBox.setVisibility(View.INVISIBLE);
             mInfoText.setVisibility(View.VISIBLE);
+            mInfoText.setText("没有类似的商品~");
         } else {
             mSalesCheckBox.setVisibility(View.VISIBLE);
             mPriceCheckBox.setVisibility(View.VISIBLE);
@@ -209,5 +212,16 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
     @Override
     public void onSortCompleted() {
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSearchError(String errorInfo) {
+        mAdapter.setProducts(new ArrayList<>());
+        mAdapter.notifyDataSetChanged();
+        mSpinKitView.setVisibility(View.INVISIBLE);
+        mSalesCheckBox.setVisibility(View.INVISIBLE);
+        mPriceCheckBox.setVisibility(View.INVISIBLE);
+        mInfoText.setVisibility(View.VISIBLE);
+        mInfoText.setText(errorInfo);
     }
 }
