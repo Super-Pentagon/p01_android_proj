@@ -72,8 +72,8 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
         mQuickSearchLayout = findViewById(R.id.quickSearchLayout);
         mSalesCheckBox = findViewById(R.id.salesCheckBox);
         mPriceCheckBox = findViewById(R.id.priceCheckBox);
-        mSpinKitView=findViewById(R.id.spinKit);
-        mInfoText=findViewById(R.id.info);
+        mSpinKitView = findViewById(R.id.spinKit);
+        mInfoText = findViewById(R.id.info);
         mTintColorChecked = getResources().getColor(R.color.colorAccent);
         tintColorUnchecked = getResources().getColor(R.color.gray);
         mDrawableChecked = getResources().getDrawable(R.drawable.drawable_round_rect_accent);
@@ -166,16 +166,17 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
 
     @Override
     public void onReadyForSearching() {
+        String string = mInputEditable.toString();
+        if (string.equals("")) return;
         mQuickSearchLayout.setVisibility(View.INVISIBLE);
         mSpinKitView.setVisibility(View.VISIBLE);
-        String string = mInputEditable.toString();
         mProductSearchPresenter.searchProducts(string);
         mProductSearchPresenter.saveSearchRecord(string);
     }
 
     @Override
     public void onSearchCompleted(List<Product> products) {
-        if(products==null){
+        if (products == null) {
             mSpinKitView.setVisibility(View.INVISIBLE);
             mSalesCheckBox.setVisibility(View.INVISIBLE);
             mPriceCheckBox.setVisibility(View.INVISIBLE);
@@ -185,11 +186,11 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
         mAdapter.setProducts(products);
         mAdapter.notifyDataSetChanged();
         mSpinKitView.setVisibility(View.INVISIBLE);
-        if(products.size()==0){
+        if (products.size() == 0) {
             mSalesCheckBox.setVisibility(View.INVISIBLE);
             mPriceCheckBox.setVisibility(View.INVISIBLE);
             mInfoText.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             mSalesCheckBox.setVisibility(View.VISIBLE);
             mPriceCheckBox.setVisibility(View.VISIBLE);
             mInfoText.setVisibility(View.INVISIBLE);
