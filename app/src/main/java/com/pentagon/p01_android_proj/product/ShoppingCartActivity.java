@@ -26,7 +26,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            webview.loadUrl("javascript:javaCallJs('" + new Gson().toJson(ShoppingCart.getInstance().getOrderItems()) + "')");
+            webview.loadUrl("javascript:javaCallJs('" +
+                    new Gson().toJson(ShoppingCart.getInstance().getOrderItems()) +
+                    "')");
         }
     };
 

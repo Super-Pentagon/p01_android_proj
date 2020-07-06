@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -26,17 +27,21 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pentagon.p01_android_proj.R;
-import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 
-public class ForgetPassActivity extends AppCompatActivity implements View.OnClickListener  {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ResetPasswordActivity extends AppCompatActivity implements View.OnClickListener, Callback<ForgetResponse> {
+
+    private final static String USER_NAME = "user_name";
 
     private LinearLayout editLayout;
     private Toolbar toolbar;
     private ImageView rainbowImage;
-    private EditText userAccountEdit;
-    private EditText verificationCodeEdit;
+    private EditText userPasswordEdit;
+    private EditText userPasswordAgainEdit;
     private FloatingActionButton fab;
-    private ImageView securityCode;
     private TextView registerText;
     private TextView forgetText;
     private LinearLayout wrongLayout;
@@ -46,7 +51,7 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_pass);
+        setContentView(R.layout.activity_reset_pass);
         initViews();
         loadImage();
         iniToolBar();
@@ -56,9 +61,8 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
         editLayout = findViewById(R.id.edit_layout);
         toolbar = findViewById(R.id.toolbar);
         rainbowImage = findViewById(R.id.rainbow);
-        userAccountEdit = findViewById(R.id.usr_account);
-        verificationCodeEdit = findViewById(R.id.verification_code);
-        securityCode = findViewById(R.id.security_code);
+        userPasswordEdit = findViewById(R.id.usr_password);
+        userPasswordAgainEdit = findViewById(R.id.usr_password_again);
         fab = findViewById(R.id.login);
         registerText = findViewById(R.id.register);
         wrongLayout = findViewById(R.id.wrong);
@@ -66,14 +70,12 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
         wrongOkTextView = findViewById(R.id.wrong_ok);
 
         toolbar.setOnClickListener(this);
-        userAccountEdit.setOnClickListener(this);
-        verificationCodeEdit.setOnClickListener(this);
+        userPasswordEdit.setOnClickListener(this);
+        userPasswordAgainEdit.setOnClickListener(this);
         editLayout.setOnClickListener(this);
     }
 
     private void loadImage() {
-
-        Glide.with(this).load(getDrawable(R.drawable.verification_result)).into(securityCode);
 
         RequestOptions options = new RequestOptions()
                 .centerCrop()
@@ -109,49 +111,56 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setTitle("Back");
     }
 
-    public void forgetEvent(View view) {
-        if (userAccountEdit.getText().toString().equals("")) {
-            wrongTipsTextView.setText("账号不能为空");
+    public void resetEvent(View view) {
+        if (userPasswordEdit.getText().toString().equals("")) {
+            wrongTipsTextView.setText("密码不能为空");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
-            userAccountEdit.setEnabled(false);
-            verificationCodeEdit.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            userPasswordAgainEdit.setEnabled(false);
             editLayout.setEnabled(false);
             return;
         }
-        if (verificationCodeEdit.getText().toString().equals("")) {
-            wrongTipsTextView.setText("验证文字不能为空");
+        if (userPasswordAgainEdit.getText().toString().equals("")) {
+            wrongTipsTextView.setText("确认密码不能为空");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
-            userAccountEdit.setEnabled(false);
-            verificationCodeEdit.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            userPasswordAgainEdit.setEnabled(false);
             editLayout.setEnabled(false);
             return;
         }
-        if (!verificationCodeEdit.getText().toString().equals("通源")) {
-            wrongTipsTextView.setText("验证文字不匹配");
+        if (!userPasswordAgainEdit.getText().toString().equals(userPasswordEdit.getText().toString())) {
+            wrongTipsTextView.setText("两次密码不一样");
             wrongLayout.setVisibility(View.VISIBLE);
             toolbar.setEnabled(false);
-            userAccountEdit.setEnabled(false);
-            verificationCodeEdit.setEnabled(false);
+            userPasswordEdit.setEnabled(false);
+            userPasswordAgainEdit.setEnabled(false);
             editLayout.setEnabled(false);
             return;
         }
-        ResetPassActivity.actionStart(this, UserPreferenceUtil.getUserId(this));
+        // 功能设计问题，砍掉此功能
         finish();
+//        User user = User.init().username(UserPreferenceUtil.getUserId(this)).password(userPasswordEdit.getText().toString()).build();
+//        try {
+//            new LoginModel().reset(this, user);
+//        } catch (Exception e) {
+//            Log.e("ResetPasswordActivity.reset", e.getMessage());
+//            e.printStackTrace();
+//        }
     }
 
     public void tipsLayoutGone(View view) {
         wrongLayout.setVisibility(View.GONE);
         toolbar.setEnabled(true);
-        userAccountEdit.setEnabled(true);
-        verificationCodeEdit.setEnabled(true);
+        userPasswordEdit.setEnabled(true);
+        userPasswordAgainEdit.setEnabled(true);
         editLayout.setEnabled(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             if (wrongLayout.getVisibility() == View.VISIBLE) {
                 return true;
             }
@@ -165,8 +174,27 @@ public class ForgetPassActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    public static void actionStart(Activity activity) {
-        Intent intent = new Intent(activity, ForgetPassActivity.class);
+    @Override
+    public void onResponse(Call<ForgetResponse> call, Response<ForgetResponse> response) {
+        Log.i("hornhuang-test-info", "" + response.body().toString());
+        ForgetResponse forgetResponse = response.body();
+        if (forgetResponse.isSuccess()) {
+            Toast.makeText(this, "密码重置成功", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            Toast.makeText(this, "用户信息错误", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onFailure(Call<ForgetResponse> call, Throwable t) {
+        Log.e("ResetPasswordActivity.reset",t.toString());
+        Toast.makeText(this, "请检查网络", Toast.LENGTH_SHORT).show();
+    }
+
+    public static void actionStart(Activity activity, String user_password) {
+        Intent intent = new Intent(activity, ResetPasswordActivity.class);
+        intent.putExtra(USER_NAME, user_password);
         activity.startActivity(intent);
     }
 
