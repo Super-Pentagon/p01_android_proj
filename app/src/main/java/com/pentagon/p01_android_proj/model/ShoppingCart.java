@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class ShoppingCart {
-    private static final ShoppingCart ourInstance = new ShoppingCart();
+    private static final ShoppingCart instance = new ShoppingCart();
     private BigDecimal subtotal=new BigDecimal(0);
     private List<OrderItem> mOrderItems = new ArrayList<>();
 
@@ -23,7 +21,7 @@ public class ShoppingCart {
      * @return 购物车单例
      */
     public static ShoppingCart getInstance() {
-        return ourInstance;
+        return instance;
     }
 
     /**
