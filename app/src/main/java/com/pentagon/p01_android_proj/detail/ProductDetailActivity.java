@@ -37,7 +37,7 @@ import com.pentagon.p01_android_proj.util.UserPreferenceUtil;
 import java.math.BigDecimal;
 
 public class ProductDetailActivity extends AppCompatActivity implements IProductDetailView {
-    private int mQuantity = 0;
+    private int mQuantity;
     private IProductDetailPresenter mProductDetailPresenter;
     private TextView mSubtotalText;
     private TextView mKindQuantityText;
@@ -157,6 +157,7 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
 
     @Override
     public void onInitCompleted(int quantity, int kindQuantity, BigDecimal subtotal) {
+        mQuantity=quantity;
         mQuantityText.setText(String.valueOf(quantity));
         mKindQuantityText.setText(String.valueOf(kindQuantity));
         mSubtotalText.setText("￥" + subtotal);
