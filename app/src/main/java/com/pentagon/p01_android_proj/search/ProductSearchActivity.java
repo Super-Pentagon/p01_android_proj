@@ -10,8 +10,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -29,6 +31,7 @@ import com.pentagon.p01_android_proj.model.ShoppingCart;
 import com.pentagon.p01_android_proj.util.LogHelper;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductSearchActivity extends AppCompatActivity implements IProductSearchView
@@ -95,6 +98,16 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
                 LogHelper.log("afterTextChanged:" + s);
                 mInputEditable = s;
                 mProductSearchPresenter.tryToSearch();
+            }
+        });
+
+        mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    mProductSearchPresenter.tryToSearch();
+                }
+                return false;
             }
         });
 
@@ -170,6 +183,7 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
         if (string.equals("")) return;
         mQuickSearchLayout.setVisibility(View.INVISIBLE);
         mSpinKitView.setVisibility(View.VISIBLE);
+        mInfoText.setVisibility(View.INVISIBLE);
         mProductSearchPresenter.searchProducts(string);
         mProductSearchPresenter.saveSearchRecord(string);
     }
@@ -190,6 +204,7 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
             mSalesCheckBox.setVisibility(View.INVISIBLE);
             mPriceCheckBox.setVisibility(View.INVISIBLE);
             mInfoText.setVisibility(View.VISIBLE);
+            mInfoText.setText("没有类似的商品~");
         } else {
             mSalesCheckBox.setVisibility(View.VISIBLE);
             mPriceCheckBox.setVisibility(View.VISIBLE);
@@ -209,5 +224,16 @@ public class ProductSearchActivity extends AppCompatActivity implements IProduct
     @Override
     public void onSortCompleted() {
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSearchError(String errorInfo) {
+        mAdapter.setProducts(new ArrayList<>());
+        mAdapter.notifyDataSetChanged();
+        mSpinKitView.setVisibility(View.INVISIBLE);
+        mSalesCheckBox.setVisibility(View.INVISIBLE);
+        mPriceCheckBox.setVisibility(View.INVISIBLE);
+        mInfoText.setVisibility(View.VISIBLE);
+        mInfoText.setText(errorInfo);
     }
 }

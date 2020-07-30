@@ -76,6 +76,7 @@
                 android:background="@null"
                 android:ems="10"
                 android:hint="在此搜索想要的商品"
+                android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLength="15"
                 android:textColor="@color/gray"
