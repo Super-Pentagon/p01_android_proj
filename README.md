@@ -1,5 +1,7 @@
 # 网上零食商城
 
+- 🌞 super Pentagon proj about shopping mall 网上零食商城 snakSHop 🔥 是一款独立开源项目，项目采用 Flutter / native / H5 混合开发完成，欢迎大家学习、交流 👏
+
 ![](https://user-gold-cdn.xitu.io/2020/6/19/172ca6e314acfccd?w=800&h=600&f=png&s=93136)
 
 # 1 系统概况
